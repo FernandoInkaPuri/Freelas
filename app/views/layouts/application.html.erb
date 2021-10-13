@@ -15,7 +15,7 @@
     <p><%= current_user.email %></p>
     <p><%= link_to 'Logout', destroy_user_session_path, method: :delete %></p>
     <%= link_to 'Meus Projetos', '#' %><br>
-    <%= link_to 'Cadastrar Projeto', '#' %>
+    <%= link_to 'Cadastrar Projeto', new_project_path %>
   <% else %>
     <p><%= link_to 'Entrar como contratador', new_user_session_path %></p>
     <p><%= link_to 'Entrar como profissional', new_professional_session_path %></p>

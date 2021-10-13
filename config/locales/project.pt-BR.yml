@@ -1,0 +1,9 @@
+---
+pt-BR:
+  activerecord:
+    models:
+      project: 'Projetos'
+    attributes:
+      project:
+        title: 'Título'
+        description: 'Descrição'

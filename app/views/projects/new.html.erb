@@ -1,0 +1,17 @@
+<%= form_with model: @project do |f| %>
+    <%= f.label :title, 'Título' %>
+    <%= f.text_field :title %><br>
+    <%= f.label :description, 'Descrição' %>
+    <%= f.text_field :description %><br>
+    <%= f.label :skills, 'Habilidades' %>
+    <%= f.text_field :skills %><br>
+    <%= f.label :max_value, 'Valor máximo pago por hora' %>
+    <%= f.text_field :max_value %><br>
+    <%= f.label :limit_date, 'Data limite para candidatura' %>
+    <%= f.text_field :limit_date %><br>
+    <%= f.label :start_date, 'Inicio do projeto' %>
+    <%= f.text_field :start_date %><br>
+    <%= f.label :end_date, 'Previsão de término' %>
+    <%= f.text_field :end_date %><br>
+    <%= f.submit 'Enviar' %>
+<% end %>
