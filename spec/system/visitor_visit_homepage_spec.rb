@@ -4,8 +4,8 @@ describe 'Visitor visit homepage' do
   it 'successfully' do
     visit root_path
 
-    expect(page).to have_css('h1', text: 'Flats')
-    expect(page).to have_css('h3', text: 'Boas vindas ao sistema de locação de '\
-                                         'apartamentos')
-  end
+    expect(page).to have_css('h1', text: 'Freelas')
+    expect(page).to have_css('h3', text: 'A melhor plataforma freelancer do Brasil')
+    expect(current_path).to eq root_path
+    end
 end
