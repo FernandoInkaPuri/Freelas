@@ -21,27 +21,27 @@
         <%= erro %>
     <% end %></p>
     <p><%= f.label :modality, 'Modalidade' %>
-    <%= f.select :modality, [["", ""], ["Remoto", 0], ["Presencial", 1]] %>
+    <%= f.select :modality, [["", ""], ["Remoto", 0], ["Presencial", 1]], selected: "" %>
     <% @project.errors.full_messages_for(:modality).each do |erro| %>
         <%= erro %>
     <% end %></p>
     <p><%= f.label :max_value, 'Valor máximo pago por hora' %>
-    <%= f.text_field :max_value %>
+    <%= f.number_field :max_value %>
     <% @project.errors.full_messages_for(:max_value).each do |erro| %>
         <%= erro %>
     <% end %></p>
     <p><%= f.label :limit_date, 'Data limite para candidatura' %>
-    <%= f.text_field :limit_date %>
+    <%= f.date_field :limit_date %>
     <% @project.errors.full_messages_for(:limit_date).each do |erro| %>
         <%= erro %>
     <% end %></p>
     <p><%= f.label :start_date, 'Inicio do projeto' %>
-    <%= f.text_field :start_date %>
+    <%= f.date_field :start_date %>
     <% @project.errors.full_messages_for(:start_date).each do |erro| %>
         <%= erro %>
     <% end %></p>
     <p><%= f.label :end_date, 'Previsão de término' %>
-    <%= f.text_field :end_date %>
+    <%= f.date_field :end_date %>
     <% @project.errors.full_messages_for(:end_date).each do |erro| %>
         <%= erro %>
     <% end %></p>

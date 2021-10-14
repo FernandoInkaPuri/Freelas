@@ -12,3 +12,4 @@ pt-BR:
         limit_date: 'Data limite'
         start_date: 'Data inicial'
         end_date: 'Previsão de término'
+        modality: 'Modalidade'

@@ -15,6 +15,7 @@ describe 'User register project' do
         fill_in 'Título', with: 'Projeto inovador'
         fill_in 'Descrição', with: 'Realizaremos um projeto em ruby on rails'
         fill_in 'Habilidades', with: 'Ruby on rails, vontade de criar'
+        select 'Remoto', from: 'Modalidade'
         fill_in 'Valor máximo pago por hora', with:'50'
         fill_in 'Data limite para candidatura', with:'13/12/2021'
         fill_in 'Inicio do projeto', with:'13/01/2022'

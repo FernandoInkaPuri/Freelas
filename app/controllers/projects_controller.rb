@@ -17,7 +17,7 @@ class ProjectsController < ApplicationController
    private
 
    def parametros
-      params.require(:project).permit(:title, :description, :skills, :max_value, 
+      params.require(:project).permit(:title, :description, :skills,:modality, :max_value, 
                                       :limit_date, :start_date, :end_date)
    end
 end
