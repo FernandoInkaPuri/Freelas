@@ -1,17 +1,49 @@
+<% if @project.errors.any? %>
+    <% @project.errors.full_messages.each do |erro| %>
+        <= erro %>
+    <%end%>
+<%end%>
+
 <%= form_with model: @project do |f| %>
-    <%= f.label :title, 'Título' %>
-    <%= f.text_field :title %><br>
-    <%= f.label :description, 'Descrição' %>
-    <%= f.text_field :description %><br>
-    <%= f.label :skills, 'Habilidades' %>
-    <%= f.text_field :skills %><br>
-    <%= f.label :max_value, 'Valor máximo pago por hora' %>
-    <%= f.text_field :max_value %><br>
-    <%= f.label :limit_date, 'Data limite para candidatura' %>
-    <%= f.text_field :limit_date %><br>
-    <%= f.label :start_date, 'Inicio do projeto' %>
-    <%= f.text_field :start_date %><br>
-    <%= f.label :end_date, 'Previsão de término' %>
-    <%= f.text_field :end_date %><br>
+    <p><%= f.label :title, 'Título' %>
+    <%= f.text_field :title %>
+    <% @project.errors.full_messages_for(:title).each do |erro| %>
+        <%= erro %>
+    <% end %></p>
+    <p><%= f.label :description, 'Descrição' %>
+    <%= f.text_field :description %>
+    <% @project.errors.full_messages_for(:description).each do |erro| %>
+        <%= erro %>
+    <% end %></p>
+    <p><%= f.label :skills, 'Habilidades' %>
+    <%= f.text_field :skills %>
+    <% @project.errors.full_messages_for(:skills).each do |erro| %>
+        <%= erro %>
+    <% end %></p>
+    <p><%= f.label :modality, 'Modalidade' %>
+    <%= f.select :modality, [["", ""], ["Remoto", 0], ["Presencial", 1]] %>
+    <% @project.errors.full_messages_for(:modality).each do |erro| %>
+        <%= erro %>
+    <% end %></p>
+    <p><%= f.label :max_value, 'Valor máximo pago por hora' %>
+    <%= f.text_field :max_value %>
+    <% @project.errors.full_messages_for(:max_value).each do |erro| %>
+        <%= erro %>
+    <% end %></p>
+    <p><%= f.label :limit_date, 'Data limite para candidatura' %>
+    <%= f.text_field :limit_date %>
+    <% @project.errors.full_messages_for(:limit_date).each do |erro| %>
+        <%= erro %>
+    <% end %></p>
+    <p><%= f.label :start_date, 'Inicio do projeto' %>
+    <%= f.text_field :start_date %>
+    <% @project.errors.full_messages_for(:start_date).each do |erro| %>
+        <%= erro %>
+    <% end %></p>
+    <p><%= f.label :end_date, 'Previsão de término' %>
+    <%= f.text_field :end_date %>
+    <% @project.errors.full_messages_for(:end_date).each do |erro| %>
+        <%= erro %>
+    <% end %></p>
     <%= f.submit 'Enviar' %>
 <% end %>
