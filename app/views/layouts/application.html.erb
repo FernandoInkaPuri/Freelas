@@ -18,6 +18,7 @@
     <%= link_to 'Cadastrar Projeto', new_project_path %>
   <% elsif professional_signed_in? %>
     <p><%= current_professional.email %></p>
+    <%= link_to 'Meu perfil', new_profile_path %>
     <p><%= link_to 'Logout', destroy_professional_session_path, method: :delete %></p>
     <p><%= link_to 'Procurar projeto', '#' %></p>
   <% else %>

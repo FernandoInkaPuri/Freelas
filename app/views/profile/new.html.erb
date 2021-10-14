@@ -1,0 +1,35 @@
+
+
+<%= form_with model: @profile, url: profile_index_path do |f| %>
+    <p><%= f.label :name, 'Nome Completo:' %>
+    <%= f.text_field :name %>
+    <% @profile.errors.full_messages_for(:name).each do |erro| %>
+        <%= erro %>
+    <% end %></p>
+    <p><%= f.label :social_name, 'Nome Social:' %>
+    <%= f.text_field :social_name %>
+    <% @profile.errors.full_messages_for(:social_name).each do |erro| %>
+        <%= erro %>
+    <% end %></p>
+    <p><%= f.label :birth_date, 'Data de Nascimento:' %>
+    <%= f.date_field :birth_date %>
+    <% @profile.errors.full_messages_for(:birth_date).each do |erro| %>
+        <%= erro %>
+    <% end %></p>
+    <p><%= f.label :formation, 'Formação:' %>
+    <%= f.text_field :formation %>
+    <% @profile.errors.full_messages_for(:formation).each do |erro| %>
+        <%= erro %>
+    <% end %></p>
+    <p><%= f.label :description, 'Descrição:' %>
+    <%= f.text_field :description %>
+    <% @profile.errors.full_messages_for(:description).each do |erro| %>
+        <%= erro %>
+    <% end %></p>
+    <p><%= f.label :experience, 'Experiência' %>
+    <%= f.text_field :experience %>
+    <% @profile.errors.full_messages_for(:experience).each do |erro| %>
+        <%= erro %>
+    <% end %></p>
+    <%= f.submit 'Salvar' %>
+<% end %>
