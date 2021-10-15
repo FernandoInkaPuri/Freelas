@@ -1,6 +1,6 @@
 
 
-<%= form_with model: @profile, url: profile_index_path do |f| %>
+<%= form_with model: @profile, url: profile_index_path(@profile) do |f| %>
     <p><%= f.label :name, 'Nome Completo:' %>
     <%= f.text_field :name %>
     <% @profile.errors.full_messages_for(:name).each do |erro| %>

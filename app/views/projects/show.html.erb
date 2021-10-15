@@ -1,0 +1,7 @@
+<h3><%= @project.title %></h3>
+<p>Descrição: <%= @project.description  %></p>
+<p>Habilidade desejadas: <%= @project.skills %></p>
+<p>Valor max por hora: <%= number_to_currency(@project.max_value) %></p>
+<p>Data limite para candidatura: <%= I18n.l(@project.limit_date) %></p>
+<p>Inicio do projeto: <%= I18n.l(@project.start_date) %></p>
+<p>Previsão de término: <%=I18n.l(@project.end_date) %></p>

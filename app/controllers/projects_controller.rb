@@ -12,6 +12,16 @@ class ProjectsController < ApplicationController
          render :new
       end
    end
+   
+   def show 
+      if current_professional.pending?
+         redirect_to new_profile_path
+      else
+         @project = Project.find(params[:id])
+      end  
+   end
+
+   
 
 
    private
