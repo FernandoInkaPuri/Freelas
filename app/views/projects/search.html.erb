@@ -1,12 +1,13 @@
 <%= form_with url: search_projects_path, method: :get do |f| %>
-<%= f.label :query, 'Pesquisar projeto:' %>
-<%= f.text_field :query %>
-<%= f.submit 'Buscar' %>
+    <%= f.label :query, 'Pesquisar projeto:' %>
+    <%= f.text_field :query %>
+    <%= f.submit 'Buscar' %>
 <%end%>
 
+<h4> Resultado da Pesquisa: <%= @pesquisa %></h4>
 
 <% @projects.each do |projeto| %>
     <b><%= link_to projeto.title, project_path(projeto) %></b>
     <p>Descrição: <%= projeto.description %></p>
-    <p>Habilidades: <%= projeto.skills %></p>
+    <p>Habilidade desejadas: <%= projeto.skills %></p>
 <% end %>

@@ -14,13 +14,22 @@ class ProjectsController < ApplicationController
    end
    
    def show 
-      if current_professional.pending?
-         redirect_to new_profile_path
+      if professional_signed_in?
+         if current_professional.pending?
+            redirect_to new_profile_path
+         else
+            @project = Project.find(params[:id])
+         end 
       else
          @project = Project.find(params[:id])
-      end  
+      end
    end
 
+   def search
+      @projects = Project.where('title like ? OR description like ? OR skills like ? ',
+      "%#{params[:query]}%", "%#{params[:query]}%", "%#{params[:query]}%" )
+      @pesquisa = params[:query]
+   end
    
 
 

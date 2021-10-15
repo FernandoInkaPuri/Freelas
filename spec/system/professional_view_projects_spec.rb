@@ -28,6 +28,7 @@ describe 'Professional view projects' do
     expect(page).to have_content('Data limite para candidatura: 13/02/2025')
     expect(page).to have_content('Inicio do projeto: 13/03/2025')
     expect(page).to have_content('Previsão de término: 13/04/2025')
+    #expect(page).to have_content('Status do projeto: Aberto')
     expect(page).to have_link('Logout')
     expect(page).not_to have_link('Entrar')
   end

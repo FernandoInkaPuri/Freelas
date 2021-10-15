@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_15_060220) do
+ActiveRecord::Schema.define(version: 2021_10_15_170914) do
 
   create_table "professionals", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 2021_10_15_060220) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id", null: false
     t.integer "modality"
+    t.boolean "open", default: true
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
