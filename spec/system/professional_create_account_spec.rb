@@ -17,6 +17,5 @@ describe 'Professional create account' do
     expect(page).to have_content(trabalhador.email)
     expect(page).to have_link('Logout')
     expect(page).not_to have_link('Entrar')
-    expect(page).to have_link('Procurar projeto')
   end
 end

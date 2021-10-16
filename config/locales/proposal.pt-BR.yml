@@ -1,0 +1,7 @@
+---
+pt-BR:
+  attributes:
+    reason: 'Motivo'
+    hour_value: 'Valor'
+    hours_week: 'Horas'
+    expectation: 'Expectativa'

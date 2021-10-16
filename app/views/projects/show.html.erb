@@ -5,3 +5,12 @@
 <p>Data limite para candidatura: <%= I18n.l(@project.limit_date) %></p>
 <p>Inicio do projeto: <%= I18n.l(@project.start_date) %></p>
 <p>Previsão de término: <%=I18n.l(@project.end_date) %></p>
+<br>
+<% if professional_signed_in? %>
+    <h3>Deseja se candidatar para este projeto?</h3>
+    <p>Por favor preencha o formulário informando o que te motiva a participar do projeto,
+    valor por hora de trabalho, quantas horas por semana tem disponibilidade e qual a 
+    sua expectativa para este projeto.</p>
+
+    <p><%= link_to 'Candidatar para projeto', new_project_proposal_path(@project) %><p>
+<% end %>

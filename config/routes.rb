@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 
   resources :projects, only: %i[new create show] do 
     get 'search', on: :collection
+    resources :proposals, shallow:true
   end
+  
   resources :profile, only: %i[new create show ] do 
     #get 'my_profile', on: :member
   end
