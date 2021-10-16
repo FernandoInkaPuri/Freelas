@@ -33,7 +33,9 @@ class ProjectsController < ApplicationController
       @pesquisa = params[:query]
    end
    
-
+   def my_proposals
+      @proposals = current_professional.proposals
+   end
 
    private
 

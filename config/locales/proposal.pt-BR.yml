@@ -1,7 +1,9 @@
 ---
 pt-BR:
+  not_rated: 'Pendente'
   attributes:
     reason: 'Motivo'
     hour_value: 'Valor'
     hours_week: 'Horas'
-    expectation: 'Expectativa'
+    expectation: 'Expectativa'   
+      
