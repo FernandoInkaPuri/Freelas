@@ -32,6 +32,7 @@ class ProposalsController < ApplicationController
     def reject 
         @proposal = Proposal.find(params[:id])
         @proposal.rejected!
+        @proposal.update_column(:justify, params[:justify])
         redirect_to @proposal.project
     end
 
@@ -39,7 +40,7 @@ class ProposalsController < ApplicationController
 
     def proposal_params
         params.require(:proposal).permit(:reason, :hour_value,
-                                         :hours_week, :expectation, :project_id, :professional_id )
+                                         :hours_week, :expectation, :project_id, :professional_id, :justify )
         
     end
 end

@@ -28,6 +28,10 @@
               Status: Rejeitada</p>
           <% end %>
         <%= link_to 'Aceitar proposta', accept_proposal_path(prop.id), method: :post %>
-        <%= link_to 'Rejeitar proposta', reject_proposal_path(prop.id), method: :post %>
+        <%= form_with url: reject_proposal_path(prop.id), method: :post do |f| %>
+            <%= f.label :justify, "Feedback" %>
+            <%= f.text_field :justify %>
+            <%= f.submit "Rejeitar proposta" %>
+        <% end %>
     <% end %>
 <% end %>
