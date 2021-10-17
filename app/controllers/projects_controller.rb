@@ -42,10 +42,10 @@ class ProjectsController < ApplicationController
       @proposals = current_professional.proposals
    end
 
-   def accepted
-      @project = Project.find(params[:project_id])
-      @proposals = Proposal.where('status_proposal = ? OR project_id = ?',
-      5, @project)
+   def close_registration
+      @project = Project.find(params[:id])
+      @project.update_column(:open_registration, false)
+      redirect_to @project
    end
    private
 
