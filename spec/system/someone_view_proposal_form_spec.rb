@@ -4,7 +4,7 @@ describe 'Someone view proposal form' do
     context 'professional view proposal' do
         it 'and fills wrong ' do 
             trabalhador = Professional.create!(email:'heliao@rzo.com', password:'123456', status_profile:10)
-            contratador = User.create!(email:'fautao@globo.com', password:'123456')
+            contratador = User.create!(email:'faustao@globo.com', password:'123456')
             projeto = Project.create!(title: 'Projeto Marketplace', description:'Projeto top',
                               skills:'Ruby on rails', max_value:'100', 
                               limit_date:'13/02/2025', start_date:'13/03/2025',

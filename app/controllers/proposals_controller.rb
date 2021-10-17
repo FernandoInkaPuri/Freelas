@@ -23,6 +23,18 @@ class ProposalsController < ApplicationController
         @proposal = Proposal.find(params[:id])
     end
 
+    def accept 
+        @proposal = Proposal.find(params[:id])
+        @proposal.accepted!
+        redirect_to @proposal.project
+    end
+
+    def reject 
+        @proposal = Proposal.find(params[:id])
+        @proposal.rejected!
+        redirect_to @proposal.project
+    end
+
     private 
 
     def proposal_params

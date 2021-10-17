@@ -1,5 +1,5 @@
 <% @proposals.each do |prop| %>
-  <%= prop.project.title %>
+  <h3><%= prop.project.title %></h3>
   <p>Motivo: <%= prop.reason %></p>
   <p>Valor/hora: <%= number_to_currency(prop.hour_value) %></p>
   <p>Horas disponíveis por semana: <%= prop.hours_week %>

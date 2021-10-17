@@ -6,7 +6,10 @@ Rails.application.routes.draw do
   resources :projects, only: %i[new create show] do 
     get 'search', on: :collection
     get 'my_proposals', on: :collection
-    resources :proposals, shallow:true
+    resources :proposals, shallow:true do
+      post 'accept', on: :member
+      post 'reject', on: :member
+    end
   end
   
   resources :profile, only: %i[new create show ] do 

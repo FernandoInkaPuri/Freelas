@@ -15,21 +15,27 @@ class Project < ApplicationRecord
     end
 
     def limit_date_in_the_past
-        if limit_date < Date.today
+        if limit_date != nil
+          if limit_date < Date.today
             errors.add(:limit_date, 'não pode ser em datas passadas')
+          end
         end
     end
 
     def end_date_greater_than_start_date
+      if limit_date != nil
         if start_date >= end_date
           errors.add(:end_date, 'deve ser maior que a data início')
         end
+      end
     end
     
     def start_date_in_the_past
-        if start_date < Date.today
-          errors.add(:start_date, 'não pode ser em datas passadas')
-        end
+        if limit_date != nil
+          if start_date < Date.today
+            errors.add(:start_date, 'não pode ser em datas passadas')
+          end
+        end  
     end
 
 end

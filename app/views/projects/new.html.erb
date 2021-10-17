@@ -1,8 +1,4 @@
-<% if @project.errors.any? %>
-    <% @project.errors.full_messages.each do |erro| %>
-        <= erro %>
-    <%end%>
-<%end%>
+<% @project.errors.any? %>
 
 <%= form_with model: @project do |f| %>
     <p><%= f.label :title, 'Título' %>

@@ -21,11 +21,15 @@ class ProfileController < ApplicationController
     end
 
     def show 
+      if professional_signed_in? 
         if current_professional.pending?
             redirect_to new_profile_path
         else
             @profile = current_professional.profile
-        end    
+        end
+      elsif user_signed_in? 
+        @profile = Profile.find(params[:id])  
+      end
     end
 
     private
