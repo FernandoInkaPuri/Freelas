@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-   before_action :authenticate_user!, only: [:new, :create]
+   before_action :authenticate_user!, only: [:new, :create, :accepted]
 
    def new
          @project = Project.new()
@@ -19,11 +19,16 @@ class ProjectsController < ApplicationController
       if professional_signed_in?
          if current_professional.pending?
             redirect_to new_profile_path
-         else
-            @project = Project.find(params[:id])
-         end 
-      else
+         end
          @project = Project.find(params[:id])
+      else 
+         project = Project.find(params[:id])
+         @user = User.find(project.user_id)
+         if user_signed_in? && current_user == @user
+            @project = Project.find(params[:id])
+            @project.user = current_user
+            #@project_id = params[:id]
+         end
       end
    end
 
@@ -37,6 +42,11 @@ class ProjectsController < ApplicationController
       @proposals = current_professional.proposals
    end
 
+   def accepted
+      @project = Project.find(params[:project_id])
+      @proposals = Proposal.where('status_proposal = ? OR project_id = ?',
+      5, @project)
+   end
    private
 
    def parametros

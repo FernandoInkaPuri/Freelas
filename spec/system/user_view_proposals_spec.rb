@@ -119,4 +119,42 @@ describe 'User view proposals' do
         expect(page).to have_content('Projeto top')
         expect(page).to have_content('Status: Rejeitada')
     end
+
+    it 'and cancel a project' do 
+        trabalhador = Professional.create!(email:'tupac@amaru.com', password:'123456', status_profile:10)
+        perfil = Profile.create!(name:'Tupac', social_name:'Tupac Shakur', 
+                                   birth_date: '10/10/1998', formation:'Ciencia da computação', 
+                                   description: 'Eu sou um artista de codigo', 
+                                   experience:'3 anos dev ruby', professional: trabalhador)
+        contratador = User.create!(email:'Amy@whinehouse.com', password:'123456')
+        projeto = Project.create!(title: 'Projeto Marketplace', description:'Projeto top',
+                        skills:'Ruby on rails', max_value:'100', 
+                        limit_date:'13/02/2025', start_date:'13/03/2025',
+                        end_date: '13/04/2025', modality: 0, user: contratador)
+        proposta_1 = Proposal.create!(reason:'Trabalhar', hour_value:'60',
+                                      hours_week:'10', expectation: 'Dinheirinhos', 
+                                      project: projeto, professional: trabalhador)                     
+        
+        visit root_path
+        click_on 'Entrar como contratador'
+        fill_in 'Email', with: contratador.email
+        fill_in 'Senha', with: contratador.password
+        within 'form' do
+            click_on 'Entrar'
+        end
+        click_on 'Projeto Marketplace'
+        click_on 'Encerrar inscrições'
+        click_on 'Logout'
+        click_on 'Entrar como profissional'
+        fill_in 'Email', with: trabalhador.email
+        fill_in 'Senha', with: trabalhador.password
+        within 'form' do
+            click_on 'Entrar'
+        end
+
+        expect(page).not_to have_content('Projeto Marketplace')
+        expect(page).not_to have_content('Projeto top')
+        expect(page).not_to have_content('Ruby on rails')
+        expect(page).not_to have_content('13/02/2025')
+    end
 end
