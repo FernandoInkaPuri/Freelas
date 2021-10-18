@@ -14,7 +14,7 @@
 
     <p><%= link_to 'Candidatar para projeto', new_project_proposal_path(@project,@user) %><p>
 <% elsif user_signed_in? && @project.user == current_user %>
-        <%= link_to 'Visualizar time', '#' %>
+        <%= link_to 'Time do Projeto', '#' %>
         <%= link_to 'Encerrar inscrições', close_registration_project_path(@project.id), method: :post %>
     <% @project.proposals.each do |prop| %>
         <h4>Proposta de <%= link_to prop.professional.profile.social_name, profile_path(prop.professional.profile) %></h4>

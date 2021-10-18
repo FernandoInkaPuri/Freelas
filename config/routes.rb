@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :projects, only: %i[new create show] do 
     get 'search', on: :collection
     post 'close_registration', on: :member
+    get 'team', on: :collection
     get 'my_proposals', on: :collection
     resources :proposals, shallow:true do
       post 'accept', on: :member

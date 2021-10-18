@@ -32,7 +32,7 @@ describe 'Professional view projects' do
     expect(page).to have_link('Logout')
     expect(page).not_to have_link('Entrar')
   end
-  it 'and see all your projects' do 
+  it 'and see all your proposals' do 
     trabalhador = Professional.create!(email:'heliao@rzo.com', password:'123456', status_profile:10)
     contratador = User.create!(email:'fautao@globo.com', password:'123456')
     projeto = Project.create!(title: 'Projeto Marketplace', description:'Projeto top',
@@ -52,7 +52,7 @@ describe 'Professional view projects' do
     within 'form' do
       click_on 'Entrar'
     end
-    click_on 'Meus Projetos'
+    click_on 'Minhas Propostas'
 
 
     expect(page).to have_content('Projeto Marketplace')

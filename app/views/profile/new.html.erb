@@ -11,6 +11,8 @@
     <% @profile.errors.full_messages_for(:social_name).each do |erro| %>
         <%= erro %>
     <% end %></p>
+    <p><%= f.label :avatar, 'Selecione uma foto de Perfil' %>
+    <%= f.file_field :avatar %></p>
     <p><%= f.label :birth_date, 'Data de Nascimento:' %>
     <%= f.date_field :birth_date %>
     <% @profile.errors.full_messages_for(:birth_date).each do |erro| %>

@@ -20,7 +20,7 @@
     <p><%= current_professional.email %></p>
     <%= link_to 'Meu perfil', profile_path(current_professional) %>
     <p><%= link_to 'Logout', destroy_professional_session_path, method: :delete %></p>
-    <p><%= link_to 'Meus Projetos', my_proposals_projects_path %></p>
+    <p><%= link_to 'Minhas Propostas', my_proposals_projects_path %></p>
   <% else %>
     <p><%= link_to 'Entrar como contratador', new_user_session_path %></p>
     <p><%= link_to 'Entrar como profissional', new_professional_session_path %></p>
