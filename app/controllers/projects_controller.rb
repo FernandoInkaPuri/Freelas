@@ -49,12 +49,10 @@ class ProjectsController < ApplicationController
    end
 
    def team
-      project = Project.find(params[:id])
-      proposals = project.proposals.where( status_proposal: 5)
-      @team = proposals.professional_id
+      @project = Project.find(params[:id])
+      @proposals = @project.proposals.where( status_proposal: 5)
+      #@team = proposals
       #@team = @project.proposals.where(professional: current_professional, status_proposal: 5)
-      @project.update_column(:open_registration, false)
-      redirect_to @project
    end
    private
 
