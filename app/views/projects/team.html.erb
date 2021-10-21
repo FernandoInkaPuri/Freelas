@@ -1,5 +1,8 @@
-
-
+<h2><%= @project.title %></h2>
+<h4>Lista dos aprovados para o projeto <%= @project.title %></h4>
 <% @proposals.each do |prop| %>
-    <%= prop.professional.profile.social_name %>
+    <p><%= prop.professional.profile.social_name %><p>
+    <p><%= prop.professional.profile.formation %><p>
+    <p><%= prop.reason %><p>
+    <p><%= link_to "Proposta de #{prop.professional.profile.social_name}", prop%></p><br>
 <% end %>

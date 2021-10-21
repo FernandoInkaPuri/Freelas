@@ -1,0 +1,9 @@
+<h3>Aproveite para dar o feedback aos profissionais que participaram<h3>
+<% @proposals.each do |prop| %>
+   <p><% prop.professional.profile.social_name %>
+    <%= form_with model: @feedback, url: project_feedbacks_path do |f| %></p>
+    <p> <%= f.label :feedback, "Insira o feedback: " %>
+    <%= f.text_field :feedback %>
+    <%= f.submit 'Enviar' %></p>
+    <% end %>
+<% end %>

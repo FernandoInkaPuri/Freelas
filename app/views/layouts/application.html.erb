@@ -14,7 +14,7 @@
   <% if user_signed_in? %>
     <p><%= current_user.email %></p>
     <p><%= link_to 'Logout', destroy_user_session_path, method: :delete %></p>
-    <%= link_to 'Meus Projetos', '#' %><br>
+    <%= link_to 'Meus Projetos', my_projects_projects_path %><br>
     <%= link_to 'Cadastrar Projeto', new_project_path %>
   <% elsif professional_signed_in? %>
     <p><%= current_professional.email %></p>

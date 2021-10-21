@@ -11,4 +11,6 @@
     <% elsif prop.status_proposal == 'rejected' %>
         Status: Rejeitada</p>
     <% end %>
+  <p><%= link_to 'Ver Projeto', prop.project %></p>
+  <p><%= link_to 'Ver Perfil', prop.professional.profile %></p>
 <% end %>

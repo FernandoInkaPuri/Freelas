@@ -21,14 +21,15 @@ class ProjectsController < ApplicationController
             redirect_to new_profile_path
          end
          @project = Project.find(params[:id])
-      else 
-         project = Project.find(params[:id])
-         @user = User.find(project.user_id)
+      elsif user_signed_in? 
+         @project = Project.find(params[:id])
+         @user = User.find(@project.user_id)
          if user_signed_in? && current_user == @user
-            @project = Project.find(params[:id])
             @project.user = current_user
             #@project_id = params[:id]
          end
+      else
+         @project = Project.find(params[:id])
       end
    end
 
@@ -54,6 +55,18 @@ class ProjectsController < ApplicationController
       #@team = proposals
       #@team = @project.proposals.where(professional: current_professional, status_proposal: 5)
    end
+
+   def close_project
+      project = Project.find(params[:id])
+      project.update_column(:open, false)
+      redirect_to new_project_feedback_path(project.id), notice: "Projeto encerrado com sucesso! Aproveite e dê o feedback dos profissionais que participaram "  
+   end
+
+   def my_projects
+      @projects = Project.where(user: current_user)
+   end
+
+   
    private
 
    def parametros

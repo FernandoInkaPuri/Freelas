@@ -21,6 +21,7 @@ class ProposalsController < ApplicationController
 
     def show
         @proposal = Proposal.find(params[:id])
+        @name = @proposal.professional.profile.social_name
     end
 
     def accept 

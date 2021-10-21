@@ -7,6 +7,7 @@ class Project < ApplicationRecord
     validate :end_date_greater_than_start_date
     validate :start_date_in_the_past
     has_many :proposals
+    has_many :feedbacks
     private
     def remote_or_presecial
         if modality != 0 && modality != 1
