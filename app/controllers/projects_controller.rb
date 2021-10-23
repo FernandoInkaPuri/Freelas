@@ -66,6 +66,11 @@ class ProjectsController < ApplicationController
       @projects = Project.where(user: current_user)
    end
 
+   def feedbacks
+      @proposals = Proposal.where(professional: current_professional, status_proposal: 5)
+      @projects = []
+      @proposals.each{|prop|@projects << prop.project }
+   end
    
    private
 

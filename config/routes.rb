@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     get 'team', on: :member
     get 'my_projects', on: :collection
     get 'my_proposals', on: :collection
+    get 'feedbacks', on: :collection
     resources :proposals, shallow:true do
       post 'accept', on: :member
       post 'reject', on: :member

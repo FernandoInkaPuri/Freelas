@@ -25,10 +25,12 @@ class ProfileController < ApplicationController
         if current_professional.pending?
             redirect_to new_profile_path
         else
-            @profile = current_professional.profile
+            @profile = Profile.find(params[:id])
+            nota
         end
       elsif user_signed_in? 
         @profile = Profile.find(params[:id])  
+        nota
       end
     end
 
@@ -37,5 +39,16 @@ class ProfileController < ApplicationController
     def profile_params
         params.require(:profile).permit(:name, :social_name, :birth_date, 
                                         :formation, :description, :experience, :status_profile, :avatar )
+    end
+
+    def nota
+      @feedbacks = Feedback.where(professional: @profile.professional)
+        n = []
+        @feedbacks.each do |fb| 
+          if fb.nota != [] && fb.nota != nil
+            n << fb.nota
+            @nota = n.reduce{|sum,num| sum + num}/n.size
+          end
+        end
     end
 end

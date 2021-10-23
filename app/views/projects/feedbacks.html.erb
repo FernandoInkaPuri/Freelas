@@ -1,9 +1,20 @@
-<h3>Aproveite para dar o feedback aos profissionais que participaram<h3>
+<h3>Aproveite para dar o feedback aos profissionais que participaram</h3>
 <% @proposals.each do |prop| %>
-   <p><% prop.professional.profile.social_name %>
-    <%= form_with model: @feedback, url: project_feedbacks_path do |f| %></p>
-    <p> <%= f.label :feedback, "Insira o feedback: " %>
-    <%= f.text_field :feedback %>
-    <%= f.submit 'Enviar' %></p>
-    <% end %>
+   <p><%= prop.professional.profile.social_name %>
+   <p><%= prop.project.title %>
 <% end %>
+<h3>Aproveite para dar o feedback ao Contratador e ao Projeto</h3>
+<p><%= @project.user.email %></p>
+<%= form_with model: @feedback, url: project_feedbacks_path(professional_id: prop.professional.id) do |f| %></p>
+  <p><%= f.label :feedback, "Insira o Feedback: " %>
+  <%= f.text_field :feedback %></p>
+  <p><%= f.label :nota, "Nota: " %>
+  <%= f.text_field :nota %></p>
+  <%= f.submit 'Enviar' %></p>
+<% end %><br>
+  <p><%= @project.title %>
+  <%= form_with model: @feedback do |f| %></p>
+  <p><%= f.label :feedback, "Insira o Feedback: " %>
+  <%= f.text_field :feedback %></p>
+  <%= f.submit 'Enviar' %></p>
+  <% end %><br>

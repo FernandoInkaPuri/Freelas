@@ -2,6 +2,7 @@
 <% if @profile.avatar.attached? %>
     <p><%= image_tag(@profile.avatar, size: "260x180" )%></p>
 <%end%>
+<p>Nota: <%= @nota %></p>
 <p><%= @profile.name %></p>
 <p><%= I18n.l(@profile.birth_date) %></p>
 <p><%= @profile.formation %></p>
