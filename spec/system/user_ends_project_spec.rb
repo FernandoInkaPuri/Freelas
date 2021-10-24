@@ -91,11 +91,11 @@ describe 'User ends project' do
     end
 
     it 'and professional gives feedback' do 
-        trabalhador = Professional.create!(email:'heliao@rzo.com', password:'123456', status_profile:10)
-        perfil = Profile.create!(name:'Helio', social_name:'Helio Silva', 
+        trabalhador_2 = Professional.create!(email:'sandrão@rzo.com', password:'123456', status_profile:10)
+        perfil = Profile.create!(name:'Sandro', social_name:'Sandro', 
                                    birth_date: '10/10/1998', formation:'Analises', 
                                    description: 'Sou um cara top, trampo muito', 
-                                   experience:'2 anos dev ruby', professional: trabalhador )
+                                   experience:'2 anos dev ruby', professional: trabalhador_2 )
         contratador = User.create!(email:'Amy@whinehouse.com', password:'123456')
         projeto = Project.create!(title: 'Projeto Marketplace', description:'Projeto top',
                         skills:'Ruby on rails', max_value:'100', 
@@ -103,8 +103,7 @@ describe 'User ends project' do
                         end_date: '13/04/2025', modality: 0, user: contratador)
         proposta_1 = Proposal.create!(reason:'Trabalhar', hour_value:'60',
                                       hours_week:'10', expectation: 'Dinheirinhos', 
-                                      project: projeto, professional: trabalhador) 
-
+                                      project: projeto, professional: trabalhador_2) 
         visit root_path
         click_on 'Entrar como contratador'
         fill_in 'Email', with: contratador.email
@@ -114,20 +113,21 @@ describe 'User ends project' do
         end
         click_on 'Projeto Marketplace'
         click_on 'Aceitar proposta'
-        click_on 'Encerrar Projeto'
-        fill_in 'Feedback', with: 'Ótimo desenvolvedor, gosta do que faz'
-        fill_in 'Nota', with: '5'
-        click_on 'Enviar'  
+        click_on 'Encerrar Projeto'  
         click_on 'Logout'
         click_on 'Entrar como profissional'
-        fill_in 'Email', with: trabalhador.email
-        fill_in 'Senha', with: trabalhador.password
+        fill_in 'Email', with: trabalhador_2.email
+        fill_in 'Senha', with: trabalhador_2.password
         within 'form' do
             click_on 'Entrar'
         end
-        visit feedbacks_projects_path
-        fill_in 'Feedback Contratador', with: 'É um bom contratador'
-        fill_in 'Nota', with: '5'
+        visit root_path
+        click_on 'Feedbacks'
+        within 'form' do
+            fill_in 'Feedback do Contratador:', with: 'É um bom contratador'
+            fill_in 'Nota', with: '5'
+        end
+        
         click_on 'Enviar'
 
         expect(page).to have_content('Feedback enviado com sucesso!')

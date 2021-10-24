@@ -70,6 +70,23 @@ class ProjectsController < ApplicationController
       @proposals = Proposal.where(professional: current_professional, status_proposal: 5)
       @projects = []
       @proposals.each{|prop|@projects << prop.project }
+      @fb_user = []
+      @fb_proj = []
+      @projects.each do |proj|
+         @fb_u = Feedback.where(project: proj, 
+                                   professional: current_professional, 
+                                   feedback_type: 10)   
+         @fb_p = Feedback.where(project: proj, 
+                                   professional: current_professional, 
+                                   feedback_type: 15)                           
+         if @fb_u == [] ||  @fb_u == nil                             
+           @fb_user << proj 
+         end  
+         if @fb_p == [] ||  @fb_p == nil                             
+            @fb_proj << proj 
+         end  
+      end
+      @feedback = Feedback.new
    end
    
    private
