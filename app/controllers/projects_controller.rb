@@ -21,6 +21,8 @@ class ProjectsController < ApplicationController
             redirect_to new_profile_path
          end
          @project = Project.find(params[:id])
+         proposals = Proposal.where(project: @project, status_proposal: 5)
+         proposals.each{|prop| return @team = true if prop.professional == current_professional }
       elsif user_signed_in? 
          @project = Project.find(params[:id])
          @user = User.find(@project.user_id)
@@ -95,4 +97,10 @@ class ProjectsController < ApplicationController
       params.require(:project).permit(:title, :description, :skills,:modality, :max_value, 
                                       :limit_date, :start_date, :end_date)
    end
+   
+   def aprovado
+      proposals = Proposal.where(project: @project, status_proposal: 5)
+      professionals = proposals.professionals
+   end
+
 end

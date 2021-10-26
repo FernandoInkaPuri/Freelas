@@ -31,7 +31,15 @@ class ProfileController < ApplicationController
       elsif user_signed_in? 
         @profile = Profile.find(params[:id])  
         nota
+        @favorite = FavoriteProfessional.where(user:current_user, professional: @profile.professional)
       end
+    end
+
+    def set_favorite
+      @profile = Profile.find(params[:id])
+      @favorite = FavoriteProfessional.new(user:current_user, professional: @profile.professional)
+      @favorite.favorited!
+      redirect_to profile_path(professional_id: params[:professional_id] )
     end
 
     private
@@ -51,4 +59,5 @@ class ProfileController < ApplicationController
           end
         end
     end
+
 end
