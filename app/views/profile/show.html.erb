@@ -1,10 +1,8 @@
 <h2><%= @profile.social_name %></h2>
 <% if user_signed_in? %>
   <%= link_to 'Marcar como favorito', set_favorite_profile_path(@profile.id), method: :post %>
-  <% @favorite.each do |fav| %>
-    <% if fav.favorited? %>
+  <% if @fav %>
       <p>Você marcou este profissional como Favorito!</p>
-    <% end %>
   <% end %>
 <% end %>
 <% if @profile.avatar.attached? %>

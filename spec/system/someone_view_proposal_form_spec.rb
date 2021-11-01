@@ -72,6 +72,36 @@ describe 'Someone view proposal form' do
             expect(page).to have_content('Horas disponíveis: 15')
             expect(page).to have_content('Proposta enviada com sucesso!')
         end
+
+        it 'and cancel proposal' do 
+            trabalhador = Professional.create!(email:'heliao@rzo.com', password:'123456', status_profile:10)
+            perfil = Profile.create!(name:'Helio', social_name:'Helio Silva', 
+                                   birth_date: '10/10/1998', formation:'Analises', 
+                                   description: 'Sou um cara top, trampo muito', 
+                                   experience:'2 anos dev ruby', professional: trabalhador )
+            contratador = User.create!(email:'fautao@globo.com', password:'123456')
+            projeto = Project.create!(title: 'Projeto Marketplace', description:'Projeto top',
+                              skills:'Ruby on rails', max_value:'100', 
+                              limit_date:'13/02/2025', start_date:'13/03/2025',
+                              end_date: '13/04/2025', modality: 0, user: contratador)
+            proposta = Proposal.create!(reason:'Trabalhar', hour_value:'60',
+                              hours_week:'10', expectation: 'Dinheirinhos', 
+                              project: projeto, professional: trabalhador) 
+            visit root_path
+
+            click_on 'Entrar como profissional'
+  
+            fill_in 'Email', with: trabalhador.email
+            fill_in 'Senha', with: trabalhador.password
+            within 'form' do
+            click_on 'Entrar'
+            end 
+        
+            click_on 'Minhas Propostas'
+            click_on 'Cancelar Proposta'
+
+            expect(page).to have_content('Proposta cancelada com sucesso!')
+        end
     end
 
     context 'User view proposal' do 
@@ -82,6 +112,7 @@ describe 'Someone view proposal form' do
                               skills:'Ruby on rails', max_value:'100', 
                               limit_date:'13/02/2025', start_date:'13/03/2025',
                               end_date: '13/04/2025', modality: 0, user: contratador)
+                              
             visit root_path
             click_on 'Entrar como contratador'
   

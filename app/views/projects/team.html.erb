@@ -4,5 +4,7 @@
     <p><%= prop.professional.profile.social_name %><p>
     <p><%= prop.professional.profile.formation %><p>
     <p><%= prop.reason %><p>
-    <p><%= link_to "Proposta de #{prop.professional.profile.social_name}", prop%></p><br>
+    <% if user_signed_in? && @project.user == current_user %>
+      <p><%= link_to "Proposta de #{prop.professional.profile.social_name}", prop%></p><br>
+    <% end %><br>
 <% end %>

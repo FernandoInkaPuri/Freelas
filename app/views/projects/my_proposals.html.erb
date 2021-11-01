@@ -12,5 +12,5 @@
         Status: Rejeitada</p>
     <% end %>
   <p><%= link_to 'Ver Projeto', prop.project %></p>
-  <p><%= link_to 'Ver Perfil', prop.professional.profile %></p>
+  <p><%= link_to 'Cancelar Proposta', proposal_path(prop), method: :delete %></p>
 <% end %>

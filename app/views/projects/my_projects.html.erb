@@ -1,5 +1,5 @@
 <h3> Seus projetos </h3>
 <% @projects.each do |projeto| %>
-    <% link_to projeto.title, projeto %>
-    <% projeto.description %>
+    <p><%= link_to projeto.title, projeto %></p>
+    <p><%= projeto.description %></p>
 <% end %> 

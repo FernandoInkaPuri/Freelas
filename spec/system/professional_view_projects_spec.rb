@@ -60,4 +60,32 @@ describe 'Professional view projects' do
     expect(page).to have_content('Valor/hora: R$ 50,00')
     expect(page).to have_content('Status: Pendente')
   end
+
+  it 'and sets user as favorite' do 
+    trabalhador = Professional.create!(email:'heliao@rzo.com', password:'123456', status_profile:10)
+    contratador = User.create!(email:'faustao@globo.com', password:'123456')
+    projeto = Project.create!(title: 'Projeto Marketplace', description:'Projeto top',
+                              skills:'Ruby on rails', max_value:'100', 
+                              limit_date:'13/02/2025', start_date:'13/03/2025',
+                              end_date: '13/04/2025', modality: 0, user: contratador)
+    proposta_1 = Proposal.create!(reason:'Trabalhar', hour_value:'50', hours_week:'15', 
+                                  expectation:'trabalhar', status_proposal: 0, 
+                                  project: projeto, professional: trabalhador)
+    
+    visit root_path
+
+    click_on 'Entrar como profissional'
+  
+    fill_in 'Email', with: trabalhador.email
+    fill_in 'Senha', with: trabalhador.password
+    within 'form' do
+      click_on 'Entrar'
+    end
+
+    click_on 'Projeto Marketplace'
+    click_on 'Marcar'
+
+    expect(page).to have_content('Contratador marcado como favorito')
+    
+  end
 end

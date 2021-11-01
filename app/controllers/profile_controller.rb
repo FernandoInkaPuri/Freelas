@@ -1,6 +1,7 @@
 class ProfileController < ApplicationController
-
-
+   before_action :authenticate_user!, only: [:set_favorite]
+   before_action :authenticate_professional!, only: [:new, :create]
+   before_action :authenticate_person, only: [:show]
     def new
         if current_professional.pending?
             @profile = Profile.new
@@ -31,15 +32,29 @@ class ProfileController < ApplicationController
       elsif user_signed_in? 
         @profile = Profile.find(params[:id])  
         nota
-        @favorite = FavoriteProfessional.where(user:current_user, professional: @profile.professional)
+        favorite = FavoriteProfessional.where(user:current_user, professional: @profile.professional)
+        favorite.each{|fav| return @fav = true if fav.favorited? }
       end
     end
 
     def set_favorite
       @profile = Profile.find(params[:id])
-      @favorite = FavoriteProfessional.new(user:current_user, professional: @profile.professional)
-      @favorite.favorited!
-      redirect_to profile_path(professional_id: params[:professional_id] )
+      favorito = FavoriteProfessional.where(user:current_user, professional: @profile.professional)
+      if favorito !=[] && favorito != nil
+         favorito.each do |fav| 
+            if fav.favorited?
+              fav.unfavorited! 
+            elsif fav.unfavorited?
+              fav.favorited! 
+            end
+         end
+         redirect_back(fallback_location: root_path)
+      else
+        favorite = FavoriteProfessional.new(user:current_user, professional: @profile.professional)
+        if favorite.save
+          redirect_to @profile
+        end
+      end
     end
 
     private

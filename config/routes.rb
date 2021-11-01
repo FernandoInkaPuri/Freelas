@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     get 'my_projects', on: :collection
     get 'my_proposals', on: :collection
     get 'feedbacks', on: :collection
+    post 'user_favorite', on: :member
     resources :proposals, shallow:true do
       post 'accept', on: :member
       post 'reject', on: :member

@@ -1,8 +1,9 @@
 class ProjectsController < ApplicationController
-   before_action :authenticate_user!, only: [:new, :create, :accepted]
-
+   before_action :authenticate_user!, only: [:new, :create, :accepted, :close_registration, :close_project]
+   before_action :authenticate_professional!, only: [:my_proposals, :user_favorite, :feedbacks]
+   before_action :authenticate_person, only: [:team, :my_projects]
    def new
-         @project = Project.new()
+         @project = Project.new
    end
 
    def create
@@ -20,24 +21,22 @@ class ProjectsController < ApplicationController
          if current_professional.pending?
             redirect_to new_profile_path
          end
-         @project = Project.find(params[:id])
-         proposals = Proposal.where(project: @project, status_proposal: 5)
-         proposals.each{|prop| return @team = true if prop.professional == current_professional }
-      elsif user_signed_in? 
-         @project = Project.find(params[:id])
-         @user = User.find(@project.user_id)
-         if user_signed_in? && current_user == @user
-            @project.user = current_user
-            #@project_id = params[:id]
+         if can_see
+           @project = Project.find(params[:id])
+           proposals = Proposal.where(project: @project, status_proposal: 5)
+           favorito = FavoriteUser.where(user:@project.user, professional: current_professional)
+           favorito.each{|fav|return @favorite = true if fav.preferred?}
+           proposals.each{|prop| return @team = true if prop.professional == current_professional }
          end
-      else
-         @project = Project.find(params[:id])
+      elsif can_see
+        @project = Project.find(params[:id])
       end
    end
 
    def search
-      @projects = Project.where('title like ? OR description like ? OR skills like ? ',
-      "%#{params[:query]}%", "%#{params[:query]}%", "%#{params[:query]}%" )
+      projectos = Project.where('title like ? OR description like ? OR skills like ?',
+      "%#{params[:query]}%", "%#{params[:query]}%", "%#{params[:query]}%")
+      @projects = projectos.where(open_registration: true, open: true)
       @pesquisa = params[:query]
    end
    
@@ -46,49 +45,85 @@ class ProjectsController < ApplicationController
    end
 
    def close_registration
-      @project = Project.find(params[:id])
-      @project.update_column(:open_registration, false)
-      redirect_to @project
+      project = Project.find(params[:id])
+      if project.user == current_user
+        project.update_column(:open_registration, false)
+        redirect_to project
+      end
    end
 
    def team
-      @project = Project.find(params[:id])
-      @proposals = @project.proposals.where( status_proposal: 5)
-      #@team = proposals
-      #@team = @project.proposals.where(professional: current_professional, status_proposal: 5)
+      projecto = Project.find(params[:id])
+      propostas = Proposal.where(project: projecto, status_proposal: 5)
+      aprovado = false 
+      propostas.each{|prop| return aprovado = true if prop.professional == current_professional}
+      if professional_signed_in?
+        if aprovado && project.open  
+          @project = projecto
+          @proposals = propostas
+        end
+      elsif user_signed_in? && projecto.user == current_user
+        @project = projecto
+        @proposals = propostas
+      end
    end
 
    def close_project
       project = Project.find(params[:id])
-      project.update_column(:open, false)
-      redirect_to new_project_feedback_path(project.id), notice: "Projeto encerrado com sucesso! Aproveite e dê o feedback dos profissionais que participaram "  
+      if project.user == current_user
+        project.update_column(:open, false)
+        redirect_to new_project_feedback_path(project.id), notice: "Projeto encerrado com sucesso! Aproveite e dê o feedback dos profissionais que participaram "  
+      end
    end
 
    def my_projects
-      @projects = Project.where(user: current_user)
+      if user_signed_in?
+        @projects = Project.where(user: current_user)
+      elsif professional_signed_in?
+        proposals = Proposal.where(professional: current_professional, status_proposal: 5)
+        @projects =[]
+        proposals.each{|prop| @projects << Project.find(prop.project_id)}
+      end
    end
 
    def feedbacks
-      @proposals = Proposal.where(professional: current_professional, status_proposal: 5)
-      @projects = []
-      @proposals.each{|prop|@projects << prop.project }
+      proposals = Proposal.where(professional: current_professional, status_proposal: 5)
+      projects = []
+      proposals.each{|prop|projects << prop.project }
       @fb_user = []
       @fb_proj = []
-      @projects.each do |proj|
-         @fb_u = Feedback.where(project: proj, 
+      projects.each do |proj|
+         fb_u = Feedback.where(project: proj, 
                                    professional: current_professional, 
                                    feedback_type: 10)   
-         @fb_p = Feedback.where(project: proj, 
+         fb_p = Feedback.where(project: proj, 
                                    professional: current_professional, 
-                                   feedback_type: 15)                           
-         if @fb_u == [] ||  @fb_u == nil                             
-           @fb_user << proj 
-         end  
-         if @fb_p == [] ||  @fb_p == nil                             
-            @fb_proj << proj 
-         end  
+                                   feedback_type: 15)  
+         return @fb_user << proj if fb_u == [] || fb_u == nil                                                  
+         return @fb_proj << proj if fb_p == [] || fb_p == nil 
       end
       @feedback = Feedback.new
+   end
+
+   def user_favorite
+      project = Project.find(params[:id])
+      favorito = FavoriteUser.where(user: project.user, professional: current_professional)
+      if favorito !=[] && favorito != nil
+         favorito.each do |fav| 
+            if fav.preferred?
+              fav.unpreferred! 
+              redirect_back(fallback_location: root_path)
+            elsif fav.unpreferred?
+              fav.preferred! 
+              redirect_back(fallback_location: root_path) 
+            end
+         end
+      else
+        favorite = FavoriteUser.new(user:project.user, professional: current_professional)
+        if favorite.save
+          redirect_to project
+        end
+      end
    end
    
    private
@@ -103,4 +138,19 @@ class ProjectsController < ApplicationController
       professionals = proposals.professionals
    end
 
+   def can_see
+      project = Project.find(params[:id])
+      if professional_signed_in?
+        proposals = Proposal.where(project: project, status_proposal: 5)
+        aprovado = false 
+        proposals.each{|prop| return aprovado = true if prop.professional == current_professional}
+        return true if aprovado && project.open 
+        return true if project.open && project.open_registration 
+      elsif user_signed_in?
+         return true if project.user == current_user && project.open 
+         return true if project.open && project.open_registration 
+      else
+         return true if project.open && project.open_registration
+      end
+   end
 end

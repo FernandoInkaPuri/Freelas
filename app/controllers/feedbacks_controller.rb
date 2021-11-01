@@ -1,4 +1,5 @@
 class FeedbacksController < ApplicationController
+  before_action :authenticate_person, only: [:new, :create]
     def new
         feedback_new
         @feedback = Feedback.new

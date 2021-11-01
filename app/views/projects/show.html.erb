@@ -1,4 +1,9 @@
+<%= @team %>
 <h3><%= @project.title %></h3>
+<p>Projeto de <%= @project.user.email  %></p>
+<% if @favorite %>
+  <p>Contratador marcado como favorito</p>
+<% end %>
 <p>Descrição: <%= @project.description  %></p>
 <p>Habilidade desejadas: <%= @project.skills %></p>
 <p>Valor max por hora: <%= number_to_currency(@project.max_value) %></p>
@@ -7,8 +12,9 @@
 <p>Previsão de término: <%=I18n.l(@project.end_date) %></p>
 <br>
 <% if professional_signed_in? %>
+<p><%= link_to 'Marcar', user_favorite_project_path(@project.id), method: :post %> <%= @project.user.email  %> como Favorito </p>
   <% if @team %>
-    <%= link_to 'Time do Projeto', team_project_path(@project.id) %>
+    <%= link_to 'Time do Projeto', team_project_path(@project.id) %>    
   <% end %>    
     <h3>Deseja se candidatar para este projeto?</h3>
     <p>Por favor preencha o formulário informando o que te motiva a participar do projeto,
