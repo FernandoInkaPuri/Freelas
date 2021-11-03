@@ -17,10 +17,10 @@ class FeedbacksController < ApplicationController
 
     def feedback_new
       @project = Project.find(params[:project_id])
-      propostas = @project.proposals.where( status_proposal: 5)
+      @propostas = @project.proposals.where( status_proposal: 5)
       if user_signed_in? && @project.user == current_user
         @feedbacks = Feedback.where("project_id = ?", params[:project_id])
-        propostas.each do |prop|
+        @propostas.each do |prop|
           if @feedbacks != []
             @feedbacks.each do |fb|
               if prop.professional_id != fb.professional_id
@@ -37,7 +37,7 @@ class FeedbacksController < ApplicationController
     end
 
     def create_f_to_prof
-      @feedback = Feedback.new(params.require(:feedback).permit(:feedback, :nota))
+      @feedback = Feedback.new(params.require(:feedback).permit(:opinion, :nota))
       @feedback.user = current_user
       @feedback.project = Project.find(params[:project_id])
       @feedback.professional = Professional.find(params[:professional_id])
@@ -50,7 +50,7 @@ class FeedbacksController < ApplicationController
     end
 
     def create_f_user
-      @feedback = Feedback.new(params.require(:feedback).permit(:feedback, :nota, :feedback_type))
+      @feedback = Feedback.new(params.require(:feedback).permit(:opinion, :nota, :feedback_type))
       @feedback.professional = current_professional
       @feedback.project = Project.find(params[:project_id])
       @feedback.user = User.find(params[:user_id])

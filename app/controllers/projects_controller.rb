@@ -99,8 +99,8 @@ class ProjectsController < ApplicationController
          fb_p = Feedback.where(project: proj, 
                                    professional: current_professional, 
                                    feedback_type: 15)  
-         return @fb_user << proj if fb_u == [] || fb_u == nil                                                  
-         return @fb_proj << proj if fb_p == [] || fb_p == nil 
+         @fb_user << proj if fb_u == [] || fb_u == nil                                                  
+         @fb_proj << proj if fb_p == [] || fb_p == nil 
       end
       @feedback = Feedback.new
    end

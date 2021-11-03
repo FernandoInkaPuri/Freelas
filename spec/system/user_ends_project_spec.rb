@@ -112,8 +112,7 @@ describe 'User ends project' do
             click_on 'Entrar'
         end
         click_on 'Projeto Marketplace'
-        click_on 'Aceitar proposta'
-        click_on 'Encerrar Projeto'  
+        click_on 'Aceitar proposta' 
         click_on 'Logout'
         click_on 'Entrar como profissional'
         fill_in 'Email', with: trabalhador_2.email
@@ -123,10 +122,9 @@ describe 'User ends project' do
         end
         visit root_path
         click_on 'Feedbacks'
-        within 'form' do
-            fill_in 'Feedback do Contratador:', with: 'É um bom contratador'
-            fill_in 'Nota', with: '5'
-        end
+        
+        find(:css, "#feedback_opinion", match: :first).fill_in 'Contratador:', with: 'É um bom contratador' 
+        fill_in 'Nota', with: '5'
         
         click_on 'Enviar'
 

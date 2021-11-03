@@ -3,8 +3,8 @@
     <p>Projeto <%= fb.title %> de <%= fb.user.email %><p> 
     <%= form_with model: @feedback, url: project_feedbacks_path(user_id: fb.user.id,project_id: fb.id) do |f| %></p>
       <%= f.hidden_field(:feedback_type, value: 'user_f') %>
-      <p><%= f.label :feedback, "Feedback do Contratador: " %>
-      <%= f.text_field :feedback %></p>
+      <p><%= f.label :opinion, "Contratador:" %>
+      <%= f.text_field :opinion %></p>
       <p><%= f.label :nota, "Nota: " %>
       <%= f.text_field :nota %></p>
       <%= f.submit 'Enviar' %></p>
@@ -14,8 +14,8 @@
     <p>Projeto <%= fb.title %> de <%= fb.user.email %><p>
     <%= form_with model: @feedback, url: project_feedbacks_path(user_id: fb.user.id,project_id: fb.id) do |f| %></p>
       <%= f.hidden_field(:feedback_type, value: 'project_f') %>
-      <p><%= f.label :feedback, "Feedback do Projeto: " %>
-      <%= f.text_field :feedback %></p>
+      <p><%= f.label :opinion, "Projeto: " %>
+      <%= f.text_field :opinion %></p>
       <%= f.submit 'Enviar' %></p>
     <% end %><br>
   <% end %>
