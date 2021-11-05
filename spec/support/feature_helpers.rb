@@ -1,6 +1,7 @@
 module FeatureHelpers
     def feedback_contratador
-        find(:css, "#feedback_opinion", match: :first)
+        all("Contratador:").first
+        #find(:css, "#feedback_opinion", match: :first)
     end
 end
   

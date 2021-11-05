@@ -3,7 +3,7 @@
 </p>
 <img src="https://img.shields.io/static/v1?label=rails&message=framework&color=red&style=for-the-badge&logo=rubyonrails"/>
 
-<h3>Funcionalidades</h3>
+## Funcionalidades
 - Contratador e Profissional podem criar uma conta
 - Contratador pode cadastra um projeto
 - Profissional pode completar seu perfil com suas informações profissionais.
@@ -17,13 +17,13 @@
 - Contratador pode encerrar um projeto
 > Status do Projeto: Em desenvolvimento :gear: :wrench:
 
-<h2>Pré-Requisitos</h2>
+## Pré-Requisitos
 - [Ruby](https://www.ruby-lang.org/): versão 3.0.0 
 - [Rails](https://rubyonrails.org/): versão 6.1.4 
 - [Node](https://nodejs.org/): versão 14.17.6
 - [Yarn](https://rubyonrails.org/): versão 1.22.11 
 
-<h2>Como rodar a aplicação</h2>
+## Como rodar a aplicação
 <p>No terminal, clone o projeto: </p>
 > git clone https://github.com/FernandoInkaPuri/Freelas.git
 <p>Entre na pasta do projeto: </p>
@@ -34,13 +34,13 @@
 > rails server
 <p>Pronto, agora é possível acessar a aplicação através da rota http://localhost:3000/ </p>
 
-<h2>Como rodar os testes</h2>
+## Como rodar os testes
 > $ rspec
 
 ## Linguagens e libs utilizadas :books:
 - [Ruby](https://www.ruby-lang.org/) 
 - [Rails](https://rubyonrails.org/) 
-<p>Framework para layouts prontos:</p>
+Framework para layouts prontos:
 - [Bootstrap](https://getbootstrap.com/) 
 
 ### Usuários: 

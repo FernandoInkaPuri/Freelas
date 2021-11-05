@@ -17,9 +17,9 @@ describe 'User register project' do
         fill_in 'Habilidades', with: 'Ruby on rails, vontade de criar'
         select 'Remoto', from: 'Modalidade'
         fill_in 'Valor máximo pago por hora', with:'50'
-        fill_in 'Data limite para candidatura', with:'13/12/2025'
-        fill_in 'Inicio do projeto', with:'13/01/2025'
-        fill_in 'Previsão de término', with:'13/02/2025'
+        fill_in 'Data limite para candidatura', with:"#{2.week.from_now.to_date}"
+        fill_in 'Inicio do projeto', with:"#{3.weeks.from_now.to_date}"
+        fill_in 'Previsão de término', with:"#{2.months.from_now.to_date}"
         click_on 'Enviar'
 
         expect(page).to have_content('Projeto inovador')

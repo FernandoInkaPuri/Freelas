@@ -6,8 +6,8 @@ describe 'Professional view projects' do
     contratador = User.create!(email:'fautao@globo.com', password:'123456')
     projeto = Project.create!(title: 'Projeto Marketplace', description:'Projeto top',
                               skills:'Ruby on rails', max_value:'100', 
-                              limit_date:'13/02/2025', start_date:'13/03/2025',
-                              end_date: '13/04/2025', modality: 0, user: contratador)
+                              limit_date: "#{2.week.from_now.to_date}", start_date:"#{3.weeks.from_now.to_date}",
+                              end_date: "#{2.months.from_now.to_date}", modality: 0, user: contratador)
     visit root_path
 
     click_on 'Entrar como profissional'
@@ -20,14 +20,15 @@ describe 'Professional view projects' do
 
     click_on 'Projeto Marketplace'
 
+ 
     expect(page).to have_content(trabalhador.email)
     expect(page).to have_content('Projeto Marketplace')
     expect(page).to have_content('Descrição: Projeto top')
     expect(page).to have_content('Habilidade desejadas: Ruby on rails')
     expect(page).to have_content('Valor max por hora: R$ 100,00')
-    expect(page).to have_content('Data limite para candidatura: 13/02/2025')
-    expect(page).to have_content('Inicio do projeto: 13/03/2025')
-    expect(page).to have_content('Previsão de término: 13/04/2025')
+    expect(page).to have_content("Data limite para candidatura: #{ I18n.localize 2.weeks.from_now.to_date}")
+    expect(page).to have_content("Inicio do projeto: #{ I18n.localize 3.weeks.from_now.to_date}")
+    expect(page).to have_content("Previsão de término: #{ I18n.localize 2.months.from_now.to_date}")
     #expect(page).to have_content('Status do projeto: Aberto')
     expect(page).to have_link('Logout')
     expect(page).not_to have_link('Entrar')
@@ -37,8 +38,8 @@ describe 'Professional view projects' do
     contratador = User.create!(email:'fautao@globo.com', password:'123456')
     projeto = Project.create!(title: 'Projeto Marketplace', description:'Projeto top',
                               skills:'Ruby on rails', max_value:'100', 
-                              limit_date:'13/02/2025', start_date:'13/03/2025',
-                              end_date: '13/04/2025', modality: 0, user: contratador)
+                              limit_date: "#{2.week.from_now.to_date}", start_date:"#{3.weeks.from_now.to_date}",
+                              end_date: "#{2.months.from_now.to_date}", modality: 0, user: contratador)
     proposta_1 = Proposal.create!(reason:'Trabalhar', hour_value:'50', hours_week:'15', 
                                   expectation:'trabalhar', status_proposal: 0, 
                                   project: projeto, professional: trabalhador)
@@ -66,8 +67,8 @@ describe 'Professional view projects' do
     contratador = User.create!(email:'faustao@globo.com', password:'123456')
     projeto = Project.create!(title: 'Projeto Marketplace', description:'Projeto top',
                               skills:'Ruby on rails', max_value:'100', 
-                              limit_date:'13/02/2025', start_date:'13/03/2025',
-                              end_date: '13/04/2025', modality: 0, user: contratador)
+                              limit_date: "#{2.week.from_now.to_date}", start_date:"#{3.weeks.from_now.to_date}",
+                              end_date: "#{2.months.from_now.to_date}", modality: 0, user: contratador)
     proposta_1 = Proposal.create!(reason:'Trabalhar', hour_value:'50', hours_week:'15', 
                                   expectation:'trabalhar', status_proposal: 0, 
                                   project: projeto, professional: trabalhador)

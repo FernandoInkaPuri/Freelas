@@ -10,8 +10,8 @@ describe 'User ends project' do
         contratador = User.create!(email:'Amy@whinehouse.com', password:'123456')
         projeto = Project.create!(title: 'Projeto Marketplace', description:'Projeto top',
                         skills:'Ruby on rails', max_value:'100', 
-                        limit_date:'13/02/2025', start_date:'13/03/2025',
-                        end_date: '13/04/2025', modality: 0, user: contratador)
+                        limit_date: "#{2.week.from_now.to_date}", start_date:"#{3.weeks.from_now.to_date}",
+                        end_date: "#{2.months.from_now.to_date}", modality: 0, user: contratador)
         proposta_1 = Proposal.create!(reason:'Trabalhar', hour_value:'60',
                                       hours_week:'10', expectation: 'Dinheirinhos', 
                                       project: projeto, professional: trabalhador ) 

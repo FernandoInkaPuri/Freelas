@@ -4,9 +4,9 @@ describe 'User ends project' do
     it 'succesfully' do 
         contratador = User.create!(email:'Amy@whinehouse.com', password:'123456')
         projeto = Project.create!(title: 'Projeto Marketplace', description:'Projeto top',
-                        skills:'Ruby on rails', max_value:'100', 
-                        limit_date:'13/02/2025', start_date:'13/03/2025',
-                        end_date: '13/04/2025', modality: 0, user: contratador)
+                        skills:'Ruby on rails', max_value:'100', limit_date: "#{2.week.from_now.to_date}", 
+                        start_date:"#{3.weeks.from_now.to_date}", end_date: "#{2.months.from_now.to_date}", 
+                        modality: 0, user: contratador)
 
         visit root_path
         click_on 'Entrar como contratador'
@@ -31,8 +31,8 @@ describe 'User ends project' do
         contratador = User.create!(email:'Amy@whinehouse.com', password:'123456')
         projeto = Project.create!(title: 'Projeto Marketplace', description:'Projeto top',
                         skills:'Ruby on rails', max_value:'100', 
-                        limit_date:'13/02/2025', start_date:'13/03/2025',
-                        end_date: '13/04/2025', modality: 0, user: contratador)
+                        limit_date: "#{2.week.from_now.to_date}", start_date:"#{3.weeks.from_now.to_date}",
+                        end_date: "#{2.months.from_now.to_date}", modality: 0, user: contratador)
         proposta_1 = Proposal.create!(reason:'Trabalhar', hour_value:'60',
                                       hours_week:'10', expectation: 'Dinheirinhos', 
                                       project: projeto, professional: trabalhador) 
@@ -64,8 +64,8 @@ describe 'User ends project' do
         contratador = User.create!(email:'Amy@whinehouse.com', password:'123456')
         projeto = Project.create!(title: 'Projeto Marketplace', description:'Projeto top',
                         skills:'Ruby on rails', max_value:'100', 
-                        limit_date:'13/02/2025', start_date:'13/03/2025',
-                        end_date: '13/04/2025', modality: 0, user: contratador)
+                        limit_date: "#{2.week.from_now.to_date}", start_date:"#{3.weeks.from_now.to_date}",
+                        end_date: "#{2.months.from_now.to_date}", modality: 0, user: contratador)
         proposta_1 = Proposal.create!(reason:'Trabalhar', hour_value:'60',
                                       hours_week:'10', expectation: 'Dinheirinhos', 
                                       project: projeto, professional: trabalhador) 
@@ -98,36 +98,27 @@ describe 'User ends project' do
                                    experience:'2 anos dev ruby', professional: trabalhador_2 )
         contratador = User.create!(email:'Amy@whinehouse.com', password:'123456')
         projeto = Project.create!(title: 'Projeto Marketplace', description:'Projeto top',
-                        skills:'Ruby on rails', max_value:'100', 
-                        limit_date:'13/02/2025', start_date:'13/03/2025',
-                        end_date: '13/04/2025', modality: 0, user: contratador)
-        proposta_1 = Proposal.create!(reason:'Trabalhar', hour_value:'60',
-                                      hours_week:'10', expectation: 'Dinheirinhos', 
-                                      project: projeto, professional: trabalhador_2) 
+                                  skills:'Ruby on rails', max_value:'100', 
+                                  limit_date: "#{2.week.from_now.to_date}", start_date:"#{3.weeks.from_now.to_date}",
+                                  end_date: "#{2.months.from_now.to_date}", modality: 0, user: contratador)
+        proposta_1 = Proposal.create!(reason:'Me interessei muito pelo projeto', 
+                                      hour_value:'100', hours_week:'10',
+                                      expectation: 'Desenvolver um bom código', 
+        project: projeto, professional: trabalhador_2, status_proposal: 5)  
         visit root_path
-        click_on 'Entrar como contratador'
-        fill_in 'Email', with: contratador.email
-        fill_in 'Senha', with: contratador.password
-        within 'form' do
-            click_on 'Entrar'
-        end
-        click_on 'Projeto Marketplace'
-        click_on 'Aceitar proposta' 
-        click_on 'Logout'
         click_on 'Entrar como profissional'
         fill_in 'Email', with: trabalhador_2.email
         fill_in 'Senha', with: trabalhador_2.password
         within 'form' do
             click_on 'Entrar'
         end
-        visit root_path
         click_on 'Feedbacks'
         
-        fill_in 'Contratador:', with: 'É um bom contratador' 
+        first(:label, "Contratador").set('É um bom contratador') 
         fill_in 'Nota', with: '5'
         
-        click_on 'Enviar'
+        first(:css, 'form').click_on 'Enviar'
 
-        expect(page).to have_content('Feedback enviado com sucesso!')
+        expect(page).to have_content("Feedback de #{contratador.email} enviado com sucesso!")
     end
 end
