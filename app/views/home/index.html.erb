@@ -3,12 +3,7 @@
 <%= f.text_field :query %>
 <%= f.submit 'Buscar' %>
 <%end%>
-
-<% @proposals.each do |prop| %>
-    <b><%=prop.reason %></b>
-    <p>Expectativa: <%= prop.expectation %></p>
-    <p <%= prop.hour_value %></p>
-<% end %>
+<br>
 
 <% @projects.each do |projeto| %>
     <b><%= link_to projeto.title, project_path(projeto) %></b>

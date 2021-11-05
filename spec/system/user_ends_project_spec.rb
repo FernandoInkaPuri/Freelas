@@ -123,7 +123,7 @@ describe 'User ends project' do
         visit root_path
         click_on 'Feedbacks'
         
-        find(:css, "#feedback_opinion", match: :first).fill_in 'Contratador:', with: 'É um bom contratador' 
+        fill_in 'Contratador:', with: 'É um bom contratador' 
         fill_in 'Nota', with: '5'
         
         click_on 'Enviar'

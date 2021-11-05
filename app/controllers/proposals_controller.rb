@@ -18,8 +18,8 @@ class ProposalsController < ApplicationController
     end
 
     def show
-      project = Project.find(params[:id])
       prop = Proposal.find(params[:id])
+      project = prop.project
       if user_signed_in?
         return @proposal = prop if current_user == project.user
       elsif professional_signed_in?

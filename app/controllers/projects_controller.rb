@@ -53,19 +53,17 @@ class ProjectsController < ApplicationController
    end
 
    def team
-      projecto = Project.find(params[:id])
-      propostas = Proposal.where(project: projecto, status_proposal: 5)
-      aprovado = false 
-      propostas.each{|prop| return aprovado = true if prop.professional == current_professional}
-      if professional_signed_in?
-        if aprovado && project.open  
-          @project = projecto
-          @proposals = propostas
-        end
-      elsif user_signed_in? && projecto.user == current_user
-        @project = projecto
-        @proposals = propostas
-      end
+       projecto = Project.find(params[:id])
+       propostas = Proposal.where(project: projecto, status_proposal: 5)
+       approved = false
+       propostas.each{|prop| approved = true if prop.professional == current_professional}
+     if approved && professional_signed_in? 
+       @project = projecto
+       @proposals = propostas
+     elsif user_signed_in? && projecto.user == current_user
+       @project = projecto
+       @proposals = propostas
+     end
    end
 
    def close_project
