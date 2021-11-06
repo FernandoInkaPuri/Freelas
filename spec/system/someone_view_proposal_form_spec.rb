@@ -43,12 +43,7 @@ describe 'Someone view proposal form' do
                                    birth_date: '10/10/1998', formation:'Analises', 
                                    description: 'Sou um cara top, trampo muito', 
                                    experience:'2 anos dev ruby', professional: trabalhador )
-            contratador = User.create!(email:'fautao@globo.com', password:'123456')
-            projeto = Project.create!(title: 'Projeto Marketplace', description:'Projeto top',
-                              skills:'Ruby on rails', max_value:'100', 
-                              limit_date: "#{2.week.from_now.to_date}", start_date:"#{3.weeks.from_now.to_date}",
-                              end_date: "#{2.months.from_now.to_date}",
-                              modality: 0, user: contratador)
+            projeto = create(:project)
             visit root_path
 
             click_on 'Entrar como profissional'
@@ -80,11 +75,7 @@ describe 'Someone view proposal form' do
                                    birth_date: '10/10/1998', formation:'Analises', 
                                    description: 'Sou um cara top, trampo muito', 
                                    experience:'2 anos dev ruby', professional: trabalhador )
-            contratador = User.create!(email:'fautao@globo.com', password:'123456')
-            projeto = Project.create!(title: 'Projeto Marketplace', description:'Projeto top',
-                              skills:'Ruby on rails', max_value:'100', 
-                              limit_date: "#{2.week.from_now.to_date}", start_date:"#{3.weeks.from_now.to_date}",
-                              end_date: "#{2.months.from_now.to_date}", modality: 0, user: contratador)
+            projeto = create(:project)
             proposta = Proposal.create!(reason:'Trabalhar', hour_value:'60',
                               hours_week:'10', expectation: 'Dinheirinhos', 
                               project: projeto, professional: trabalhador) 

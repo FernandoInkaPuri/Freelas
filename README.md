@@ -24,15 +24,15 @@
 - [Yarn](https://rubyonrails.org/): versão 1.22.11 
 
 ## Como rodar a aplicação
-<p>No terminal, clone o projeto: </p>
+No terminal, clone o projeto: 
 > git clone https://github.com/FernandoInkaPuri/Freelas.git
-<p>Entre na pasta do projeto: </p>
+Entre na pasta do projeto:
 > cd Freelas
-<p>Instale as dependências </p>
+Instale as dependências 
 > yarn install
-<p>Execute a aplicação </p>
+Execute a aplicação 
 > rails server
-<p>Pronto, agora é possível acessar a aplicação através da rota http://localhost:3000/ </p>
+Pronto, agora é possível acessar a aplicação através da rota http://localhost:3000/ 
 
 ## Como rodar os testes
 > $ rspec
