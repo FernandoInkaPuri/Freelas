@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Professional view projects' do
   it 'successfuly' do
     trabalhador = Professional.create!(email:'heliao@rzo.com', password:'123456', status_profile:10)
-    create(:project) 
+    projeto = create(:project, description: FFaker::LoremBR.paragraph) 
     visit root_path
 
     click_on 'Entrar como profissional'
@@ -19,7 +19,7 @@ describe 'Professional view projects' do
  
     expect(page).to have_content(trabalhador.email)
     expect(page).to have_content('Projeto Marketplace')
-    expect(page).to have_content('Descrição: Projeto top')
+    expect(page).to have_content(projeto.description)
     expect(page).to have_content('Habilidade desejadas: Ruby on rails')
     expect(page).to have_content('Valor max por hora: R$ 100,00')
     expect(page).to have_content("Data limite para candidatura: #{ I18n.localize 2.weeks.from_now.to_date}")
