@@ -15,6 +15,7 @@ class ProposalsController < ApplicationController
         else
             render :new
         end
+        ProposalMailer.with(proposal: @proposal).notify_new_proposal.deliver_now
     end
 
     def show

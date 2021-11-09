@@ -44,6 +44,13 @@ describe 'Someone view proposal form' do
                                    description: 'Sou um cara top, trampo muito', 
                                    experience:'2 anos dev ruby', professional: trabalhador )
             projeto = create(:project)
+            mailer_spy = class_spy(ProposalMailer)
+            stub_const('ProposalMailer', mailer_spy)
+            mail = double
+            allow(ProposalMailer)
+            .to receive(:notify_new_proposal).and_return(mail)
+            allow(mail).to receive(:deliver_now)
+
             visit root_path
 
             click_on 'Entrar como profissional'
@@ -63,6 +70,8 @@ describe 'Someone view proposal form' do
         
             click_on 'Enviar proposta'
 
+            expect(ProposalMailer).to have_received(:notify_new_proposal)
+            expect(mail).to have_received(:deliver_now)
             expect(page).to have_content('Proposta enviada com sucesso!')
             expect(page).to have_content('Valor/hora: R$ 50,00')
             expect(page).to have_content('Horas disponíveis: 15')
