@@ -6,5 +6,4 @@ class Proposal < ApplicationRecord
             :status_proposal, presence: true
   validates :hour_value, :hours_week, numericality: true
 
-
 end

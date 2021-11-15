@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'User register project' do 
     it 'successfuly' do 
-        contratador = User.create!(email:'luiz@fernando.com', password:'123456')
+        contratador = create(:user) 
         visit root_path
         click_on 'Entrar como contratador'
   

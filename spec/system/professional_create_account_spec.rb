@@ -2,11 +2,10 @@ require 'rails_helper'
 
 describe 'Professional create account' do
   it 'successfuly' do
-    trabalhador = Professional.create!(email:'heliao@rzo.com', password:'123456')
-    visit root_path
+    trabalhador = create(:professional)
 
+    visit root_path
     click_on 'Entrar como profissional'
-  
     fill_in 'Email', with: trabalhador.email
     fill_in 'Senha', with: trabalhador.password
     within 'form' do

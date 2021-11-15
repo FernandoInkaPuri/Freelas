@@ -29,21 +29,21 @@ class ProposalsController < ApplicationController
     end
 
     def accept 
-        project = Project.find(params[:id])
+        project = Proposal.find(params[:id]).project
         if current_user == project.user
           @proposal = Proposal.find(params[:id])
           @proposal.accepted!
-          redirect_to @proposal.project
+          redirect_to @proposal.project, notice: 'Proposta aceita com sucesso!'
         end
     end
 
     def reject 
-      project = Project.find(params[:id])
+      project = Proposal.find(params[:id]).project
       if current_user == project.user
         @proposal = Proposal.find(params[:id])
         @proposal.rejected!
         @proposal.update_column(:justify, params[:justify])
-        redirect_to @proposal.project
+        redirect_to @proposal.project, notice: 'Proposta rejeitada com sucesso!'
       end    
     end
 

@@ -23,13 +23,14 @@ class ProjectsController < ApplicationController
          end
          if can_see
            @project = Project.find(params[:id])
-           proposals = Proposal.where(project: @project, status_proposal: 5)
+           proposals = Proposal.where(project: @project, status_proposal: "accepted")
            favorito = FavoriteUser.where(user:@project.user, professional: current_professional)
            favorito.each{|fav|return @favorite = true if fav.preferred?}
            proposals.each{|prop| return @team = true if prop.professional == current_professional }
          end
       elsif can_see
         @project = Project.find(params[:id])
+        @propostas = Proposal.where(project_id: @project.id, status_proposal: "not_rated") if @project.user == current_user
       end
    end
 

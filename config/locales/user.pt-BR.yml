@@ -6,3 +6,4 @@ pt-BR:
     attributes:
       user:
         password: 'Senha'
+        password_confirmation: 'Confirme a senha'

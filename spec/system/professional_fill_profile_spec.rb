@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-describe 'Professional create account' do
+describe 'Professional fill profile' do
   it 'successfuly' do
-    trabalhador = Professional.create!(email:'heliao@rzo.com', password:'123456')
+    trabalhador = create(:professional)
     visit root_path
 
     click_on 'Entrar como profissional'
@@ -13,8 +13,8 @@ describe 'Professional create account' do
       click_on 'Entrar'
     end
     click_on 'Meu perfil'
-    fill_in 'Nome Completo', with: 'Helio Silva'
-    fill_in 'Nome Social', with: 'Helio Silva'
+    fill_in 'Nome Completo', with: 'Luiz Fernando'
+    fill_in 'Nome Social', with: 'Luiz Fernando'
     fill_in 'Data de Nascimento', with: '13/12/1998'
     fill_in 'Formação', with: 'Análise de sistemas'
     fill_in 'Descrição', with:'Sou um homem determinado e um ótimo profissional'
@@ -22,7 +22,7 @@ describe 'Professional create account' do
     click_on 'Salvar'
 
 
-    expect(page).to have_content('Helio Silva')
+    expect(page).to have_content('Luiz Fernando')
     expect(page).to have_content(trabalhador.email)
     expect(page).to have_link('Logout')
     expect(page).not_to have_link('Entrar')

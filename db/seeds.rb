@@ -24,7 +24,7 @@ projeto_jaguar = Project.create!(title: 'Projeto Jaguar', description:'Iremos pr
 projeto_yoga = Project.create!(title: 'Projeto Yoga', description:'Queremos criar um site para nossa escola de yoga',
                                    skills:'Ruby on rails', max_value:'100', 
                                    limit_date: "#{2.week.from_now.to_date}", start_date:"#{3.weeks.from_now.to_date}",
-                                   end_date: "#{2.months.from_now.to_date}", modality: 0, user: ganesha)                                   
+                                   end_date: "#{2.months.from_now.to_date}", modality: 0, user: shiva)                                   
 proposta_1 = Proposal.create!(reason:'Gostei muito da ideia do projeto', hour_value:'100',
                                    hours_week:'10', expectation: 'Aprender mais e fazer um bom trabalho', 
                                    project: projeto_jaguar, professional: fernando)

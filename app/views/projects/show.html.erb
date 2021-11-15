@@ -26,7 +26,7 @@
         <%= link_to 'Time do Projeto', team_project_path(@project.id) %>
         <%= link_to 'Encerrar inscrições', close_registration_project_path(@project.id), method: :post %>
         <%= link_to 'Encerrar Projeto', close_project_project_path(@project.id), method: :post %>
-    <% @project.proposals.each do |prop| %>
+    <% @propostas.each do |prop| %>
         <h4>Proposta de <%= link_to prop.professional.profile.social_name, profile_path(prop.professional.profile) %></h4>
         <p>Motivo: <%= prop.reason %></p>
         <p>Valor/hora: <%= number_to_currency(prop.hour_value) %></p>

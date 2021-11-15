@@ -3,16 +3,11 @@ require 'rails_helper'
 describe 'Someone view proposal form' do 
     context 'professional view proposal' do
         it 'and fills wrong ' do 
-            trabalhador = Professional.create!(email:'heliao@rzo.com', password:'123456', status_profile:10)
-            perfil = Profile.create!(name:'Helio', social_name:'Helio Silva', 
-                                   birth_date: '10/10/1998', formation:'Analises', 
-                                   description: 'Sou um cara top, trampo muito', 
-                                   experience:'2 anos dev ruby', professional: trabalhador )
-            contratador = User.create!(email:'faustao@globo.com', password:'123456')
-            projeto = Project.create!(title: 'Projeto Marketplace', description:'Projeto top',
-                              skills:'Ruby on rails', max_value:'100', 
-                              limit_date: "#{2.week.from_now.to_date}", start_date:"#{3.weeks.from_now.to_date}",
-                              end_date: "#{2.months.from_now.to_date}", modality: 0, user: contratador)
+            trabalhador = create(:professional, status_profile:10)
+            perfil = create(:profile, professional: trabalhador)
+            contratador = create(:user) 
+            projeto = create(:project, user: contratador)                  
+            
             visit root_path
 
             click_on 'Entrar como profissional'
@@ -23,7 +18,7 @@ describe 'Someone view proposal form' do
             click_on 'Entrar'
             end
 
-            click_on 'Projeto Marketplace'
+            click_on "#{projeto.title}"
             click_on 'Candidatar para projeto'
             fill_in 'Motivo:', with: ''
             fill_in 'Valor/hora', with: 'churrasco'
@@ -38,12 +33,10 @@ describe 'Someone view proposal form' do
         end
 
         it 'and fill correctly' do 
-            trabalhador = Professional.create!(email:'heliao@rzo.com', password:'123456', status_profile:10)
-            perfil = Profile.create!(name:'Helio', social_name:'Helio Silva', 
-                                   birth_date: '10/10/1998', formation:'Analises', 
-                                   description: 'Sou um cara top, trampo muito', 
-                                   experience:'2 anos dev ruby', professional: trabalhador )
+            trabalhador = create(:professional, status_profile:10)
+            perfil = create(:profile, professional: trabalhador)
             projeto = create(:project)
+            # Stub e Mok
             mailer_spy = class_spy(ProposalMailer)
             stub_const('ProposalMailer', mailer_spy)
             mail = double
@@ -79,15 +72,12 @@ describe 'Someone view proposal form' do
         end
 
         it 'and cancel proposal' do 
-            trabalhador = Professional.create!(email:'heliao@rzo.com', password:'123456', status_profile:10)
-            perfil = Profile.create!(name:'Helio', social_name:'Helio Silva', 
-                                   birth_date: '10/10/1998', formation:'Analises', 
-                                   description: 'Sou um cara top, trampo muito', 
-                                   experience:'2 anos dev ruby', professional: trabalhador )
-            projeto = create(:project)
-            proposta = Proposal.create!(reason:'Trabalhar', hour_value:'60',
-                              hours_week:'10', expectation: 'Dinheirinhos', 
-                              project: projeto, professional: trabalhador) 
+            trabalhador = create(:professional, status_profile:10)
+            perfil = create(:profile, professional: trabalhador)
+            contratador = create(:user) 
+            projeto = create(:project, user: contratador)                  
+            proposta = create(:proposal, project: projeto, professional: trabalhador,
+                            reason: 'Fazer um ótimo trabalho')
             visit root_path
 
             click_on 'Entrar como profissional'
@@ -107,12 +97,8 @@ describe 'Someone view proposal form' do
 
     context 'User view proposal' do 
         it 'and try make proposal' do
-
-            contratador = User.create!(email:'luiz@fernando.com', password:'123456')
-            projeto = Project.create!(title: 'Projeto Marketplace', description:'Projeto top',
-                              skills:'Ruby on rails', max_value:'100', 
-                              limit_date: "#{2.week.from_now.to_date}", start_date:"#{3.weeks.from_now.to_date}",
-                              end_date: "#{2.months.from_now.to_date}", modality: 0, user: contratador)
+            contratador = create(:user) 
+            projeto = create(:project, user: contratador) 
                               
             visit root_path
             click_on 'Entrar como contratador'
@@ -125,7 +111,6 @@ describe 'Someone view proposal form' do
             click_on 'Projeto Marketplace'
 
             expect(page).not_to have_link('Candidatar para projeto')
-    
         end
     end
 end
