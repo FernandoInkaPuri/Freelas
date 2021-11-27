@@ -6,7 +6,7 @@ describe 'Professional fill profile' do
     visit root_path
 
     click_on 'Entrar como profissional'
-  
+
     fill_in 'Email', with: trabalhador.email
     fill_in 'Senha', with: trabalhador.password
     within 'form' do
@@ -17,10 +17,9 @@ describe 'Professional fill profile' do
     fill_in 'Nome Social', with: 'Luiz Fernando'
     fill_in 'Data de Nascimento', with: '13/12/1998'
     fill_in 'Formação', with: 'Análise de sistemas'
-    fill_in 'Descrição', with:'Sou um homem determinado e um ótimo profissional'
-    fill_in 'Experiência', with:'2 anos como Dev Ruby'
+    fill_in 'Descrição', with: 'Sou um homem determinado e um ótimo profissional'
+    fill_in 'Experiência', with: '2 anos como Dev Ruby'
     click_on 'Salvar'
-
 
     expect(page).to have_content('Luiz Fernando')
     expect(page).to have_content(trabalhador.email)

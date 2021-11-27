@@ -25,12 +25,12 @@ projeto_yoga = Project.create!(title: 'Projeto Yoga', description:'Queremos cria
                                    skills:'Ruby on rails', max_value:'100', 
                                    limit_date: "#{2.week.from_now.to_date}", start_date:"#{3.weeks.from_now.to_date}",
                                    end_date: "#{2.months.from_now.to_date}", modality: 0, user: shiva)                                   
-proposta_1 = Proposal.create!(reason:'Gostei muito da ideia do projeto', hour_value:'100',
+proposta1 = Proposal.create!(reason:'Gostei muito da ideia do projeto', hour_value:'100',
                                    hours_week:'10', expectation: 'Aprender mais e fazer um bom trabalho', 
                                    project: projeto_jaguar, professional: fernando)
-proposta_2 = Proposal.create!(reason:'Me interessei muito pelo projeto', hour_value:'100',
+proposta2 = Proposal.create!(reason:'Me interessei muito pelo projeto', hour_value:'100',
                                    hours_week:'10', expectation: 'Desenvolver um bom código', 
                                    project: projeto_yoga, professional: fernando, status_proposal: 5)                                     
-proposta_3 = Proposal.create!(reason:'Gostaria muito de participar deste projeto', hour_value:'100',
+proposta3 = Proposal.create!(reason:'Gostaria muito de participar deste projeto', hour_value:'100',
                                     hours_week:'10', expectation: 'Programar bastante', 
                                     project: projeto_yoga, professional: guilherme, status_proposal: 5)  
