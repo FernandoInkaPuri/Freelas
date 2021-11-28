@@ -17,12 +17,12 @@ class FeedbacksController < ApplicationController
 
   def feedback_new
     @project = Project.find(params[:project_id])
-    @propostas = @project.proposals.where(status_proposal: 5)
+    @propostas = @project.proposals.accepted
     if user_signed_in? && @project.user == current_user
-      @feedbacks = Feedback.where(project_id: params[:project_id])
+      @feedbacks = @project.feedbacks
       @propostas.each do |prop|
-        if @feedbacks == []
-          @proposals = @project.proposals.where(status_proposal: 5)
+        if @feedbacks.blank?
+          @proposals = @propostas
         else
           @feedbacks.each do |fb|
             @proposals << prop if prop.professional_id != fb.professional_id

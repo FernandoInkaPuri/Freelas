@@ -5,8 +5,14 @@
       <%= f.hidden_field(:feedback_type, value: 'user_f') %>
       <p><%= f.label :opinion, "Contratador:" %>
       <%= f.text_field :opinion %></p>
+      <% @project.errors.full_messages_for(:opinion).each do |erro| %>
+        <%= erro %>
+      <% end %>
       <p><%= f.label :nota, "Nota: " %>
       <%= f.text_field :nota %></p>
+      <% @project.errors.full_messages_for(:nota).each do |erro| %>
+        <%= erro %>
+      <% end %>
       <%= f.submit 'Enviar' %></p>
     <% end %><br>
   <% end %>
@@ -16,6 +22,9 @@
       <%= f.hidden_field(:feedback_type, value: 'project_f') %>
       <p><%= f.label :opinion, "Projeto: " %>
       <%= f.text_field :opinion %></p>
+      <% @project.errors.full_messages_for(:opinion).each do |erro| %>
+        <%= erro %>
+      <% end %>
       <%= f.submit 'Enviar' %></p>
     <% end %><br>
   <% end %>

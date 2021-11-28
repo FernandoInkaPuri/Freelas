@@ -75,11 +75,10 @@ class ProjectsController < ApplicationController
 
   def my_projects
     if user_signed_in?
-      @projects = Project.where(user: current_user)
+      @projects = current_user.projects.where(open: true)
     elsif professional_signed_in?
-      proposals = current_professional.proposals.accepted
       @projects = []
-      proposals.each { |prop| @projects << Project.find(prop.project_id) }
+      current_professional.proposals.accepted.each { |prop| @projects << prop.project }
     end
   end
 
@@ -89,14 +88,10 @@ class ProjectsController < ApplicationController
     @fb_user = []
     @fb_proj = []
     projects.each do |proj|
-      fb_u = Feedback.where(project: proj,
-                            professional: current_professional,
-                            feedback_type: 10)
-      fb_p = Feedback.where(project: proj,
-                            professional: current_professional,
-                            feedback_type: 15)
-      @fb_user << proj if [[], nil].include?(fb_u)
-      @fb_proj << proj if [[], nil].include?(fb_p)
+      fb_u = current_professional.feedbacks.user_f.where(project: proj)
+      fb_p = current_professional.feedbacks.project_f.where(project: proj)
+      @fb_user << proj if fb_u.blank?
+      @fb_proj << proj if fb_p.blank?
     end
     @feedback = Feedback.new
   end

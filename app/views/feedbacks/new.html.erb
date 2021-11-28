@@ -7,8 +7,14 @@
       <%= form_with model: @feedback, url: project_feedbacks_path(professional_id: prop.professional.id) do |f| %></p>
         <p><%= f.label :opinion, "Insira o Feedback: " %>
         <%= f.text_field :opinion %></p>
+        <% @project.errors.full_messages_for(:opinion).each do |erro| %>
+          <%= erro %>
+        <% end %>
         <p><%= f.label :nota, "Nota: " %>
         <%= f.text_field :nota %></p>
+        <% @project.errors.full_messages_for(:nota).each do |erro| %>
+          <%= erro %>
+        <% end %>
         <%= f.submit 'Enviar' %></p>
       <% end %><br>
     <% end %><br>
@@ -20,8 +26,14 @@
   <%= form_with model: @feedback do |f| %></p>
     <p><%= f.label :opinion, "Insira o Feedback: " %>
     <%= f.text_field :opinion %></p>
+    <% @project.errors.full_messages_for(:opinion).each do |erro| %>
+      <%= erro %>
+    <% end %>
     <p><%= f.label :nota, "Nota: " %>
     <%= f.text_field :nota %></p>
+    <% @project.errors.full_messages_for(:nota).each do |erro| %>
+      <%= erro %>
+    <% end %>
     <%= f.submit 'Enviar' %></p>
   <% end %><br>
   <p><%= @project.title %>

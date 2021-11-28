@@ -6,6 +6,6 @@ FactoryBot.define do
 end
 FactoryBot.define do
   sequence :email do |n|
-    "divindade#{n}@puri.com"
+    "virtude#{n}@puri.com"
   end
 end
