@@ -69,7 +69,7 @@ class ProjectsController < ApplicationController
     project = Project.find(params[:id])
     return unless project.user == current_user
     project.update_column(:open, false)
-    redirect_to new_project_feedback_path(project.id),
+    redirect_to new_feedback_path(project.id),
                 notice: 'Projeto encerrado com sucesso! Aproveite e dê o feedback dos profissionais que participaram '
   end
 
@@ -99,15 +99,10 @@ class ProjectsController < ApplicationController
   def user_favorite
     project = Project.find(params[:id])
     favorito = FavoriteUser.where(user: project.user, professional: current_professional)
-    if favorito != [] && !favorito.nil?
+    if favorito.present?
       favorito.each do |fav|
-        if fav.preferred?
-          fav.unpreferred!
-          redirect_back(fallback_location: root_path)
-        elsif fav.unpreferred?
-          fav.preferred!
-          redirect_back(fallback_location: root_path)
-        end
+        fav.unpreferred! redirect_back(fallback_location: root_path) if fav.preferred?
+        fav.preferred! redirect_back(fallback_location: root_path) if fav.unpreferred?
       end
     else
       favorite = FavoriteUser.new(user: project.user, professional: current_professional)

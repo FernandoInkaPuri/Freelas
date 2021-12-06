@@ -16,9 +16,8 @@ Rails.application.routes.draw do
       post 'accept', on: :member
       post 'reject', on: :member
     end
-    resources :feedbacks, only: %i[new create]
   end
-
+  resources :feedbacks, only: %i[new create]
   resources :profile, only: %i[new create show] do
     # get 'my_profile', on: :member
     post 'set_favorite', on: :member

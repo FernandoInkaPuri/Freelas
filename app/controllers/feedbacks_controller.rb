@@ -1,11 +1,32 @@
 class FeedbacksController < ApplicationController
   before_action :authenticate_person, only: %i[new create]
   def new
-    feedback_new
+    if user_signed_in?
+      propostas = []
+      current_user.projects.each{|proj| propostas << proj.proposals.accepted }
+      #@feedbacks = @project.feedbacks
+      if propostas.present?
+        propostas.each do |prop|
+          return unless prop.present?
+          
+          if prop.project.feedbacks.blank?
+            @proposals = propostas
+          else
+            prop.project.feedbacks.each do |fb|
+              return if prop.professional_id == fb.professional_id
+              @proposals << prop 
+            end
+          end
+        end
+      end
+    elsif professional_signed_in?
+      @proposals = current_professional.proposals.accepted
+    end
     @feedback = Feedback.new
   end
 
   def create
+    @project = Project.find(params[:project_id])
     if user_signed_in?
       create_f_to_prof
     elsif professional_signed_in?
@@ -30,7 +51,7 @@ class FeedbacksController < ApplicationController
         end
       end
     elsif professional_signed_in? propostas.professionals.include?(current_professional)
-
+      @proposals = @propostas if @proposta.present?
     end
   end
 
@@ -39,8 +60,8 @@ class FeedbacksController < ApplicationController
     @feedback.user = current_user
     @feedback.project = Project.find(params[:project_id])
     @feedback.professional = Professional.find(params[:professional_id])
-    @feedback.prof_f!
     if @feedback.save
+      @feedback.prof_f!
       redirect_to new_project_feedback_path(@feedback.project.id),
                   notice: "Feedback de #{@feedback.professional.profile.social_name} enviado com sucesso!"
     else
@@ -54,9 +75,11 @@ class FeedbacksController < ApplicationController
     @feedback.project = Project.find(params[:project_id])
     @feedback.user = User.find(params[:user_id])
     if @feedback.save
-      redirect_to feedbacks_projects_path, notice: "Feedback de #{@feedback.user.email} enviado com sucesso!"
+      message = "Feedback de #{@feedback.user.email} enviado com sucesso!" if @feedback.feedback_type == 'user_f'
+      message = "Feedback de #{@feedback.project.title} enviado com sucesso!" if @feedback.feedback_type == 'project_f'
+      redirect_to projects_feedbacks_path, notice: message
     else
-      redirect_to feedbacks_projects_path
+      render :new
     end
   end
 end

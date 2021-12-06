@@ -1,0 +1,2 @@
+class ProfessionalFeedback < ApplicationRecord
+end
