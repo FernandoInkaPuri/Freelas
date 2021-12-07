@@ -8,4 +8,5 @@ class Professional < ApplicationRecord
   has_many :projects, through: :proposals
   enum status_profile: { pending: 5, completed: 10 }
   has_many :feedbacks
+  has_many :professional_feedbacks
 end

@@ -41,9 +41,9 @@ describe 'User ends project' do
     click_on projeto.title.to_s
     click_on 'Aceitar proposta'
     click_on 'Encerrar Projeto'
-    first(:label, 'Feedback').set('Ótimo desenvolvedor, gosta do que faz')
-    first(:label, 'Nota').set('5')
-    first(:css, 'form').click_on 'Enviar'
+    fill_in 'Insira o Feedback', with: 'Ótimo desenvolvedor, gosta do que faz'
+    fill_in 'Nota', with: '5'
+    click_on 'Enviar'
 
     expect(page).to have_content("Feedback de #{perfil.social_name} enviado com sucesso!")
     expect(page).not_to have_content('Projeto Marketplace')

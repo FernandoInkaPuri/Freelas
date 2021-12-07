@@ -1,4 +1,5 @@
 <h3>Aproveite para dar o feedback ao Contratador e ao Projeto</h3>
+<% if professional_signed_in? %>
   <% @fb_user.each do |fb| %> 
     <p>Projeto <%= fb.title %> de <%= fb.user.email %><p> 
     <%= form_with model: @feedback, url: project_feedbacks_path(user_id: fb.user.id,project_id: fb.id) do |f| %></p>
@@ -28,5 +29,25 @@
       <%= f.submit 'Enviar' %></p>
     <% end %><br>
   <% end %>
+<% elsif user_signed_in?%>
+  <% if @proposals.present?  %>
+    <% @proposals.each do |prop|%>
+      <p><%= prop.professional.profile.social_name %>
+      <%= form_with model: @prof_feedback, url: professional_feedbacks_path(professional_id: prop.professional.id, user_id: current_user.id) do |f| %></p>
+        <p><%= f.label :opinion, "Insira o Feedback: " %>
+        <%= f.text_field :opinion %></p>
+        <% @prof_feedback.errors.full_messages_for(:opinion).each do |erro| %>
+            <%= erro %>
+        <% end %>
+        <p><%= f.label :grade, "Nota: " %>
+        <%= f.text_field :grade %></p>
+        <% @prof_feedback.errors.full_messages_for(:grade).each do |erro| %>
+            <%= erro %>
+        <% end %>
+        <%= f.submit 'Enviar' %></p>
+      <% end %><br>
+    <% end %>
+  <% end %>
+<% end %>
   
   

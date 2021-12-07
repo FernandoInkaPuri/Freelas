@@ -17,7 +17,8 @@
     <h1> Freelas </h1>
     <h3> A melhor plataforma freelancer do Brasil </h3>
     <nav><%= link_to 'Meus Projetos', my_projects_projects_path %>
-    <%= link_to 'Cadastrar Projeto', new_project_path %></nav>
+    <%= link_to 'Cadastrar Projeto', new_project_path %>
+    <%= link_to 'Feedbacks', feedbacks_projects_path %></nav>
   <% elsif professional_signed_in? %>
     <p><%= current_professional.email %>
     <%= link_to 'Logout', destroy_professional_session_path, method: :delete %></p>

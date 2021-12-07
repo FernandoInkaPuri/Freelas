@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     end
   end
   resources :feedbacks, only: %i[new create]
+  resources :professional_feedbacks, only: %i[new create]
   resources :profile, only: %i[new create show] do
     # get 'my_profile', on: :member
     post 'set_favorite', on: :member

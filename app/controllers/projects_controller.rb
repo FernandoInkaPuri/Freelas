@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create accepted close_registration close_project]
-  before_action :authenticate_professional!, only: %i[my_proposals user_favorite feedbacks]
-  before_action :authenticate_person, only: %i[team my_projects]
+  before_action :authenticate_professional!, only: %i[my_proposals user_favorite]
+  before_action :authenticate_person, only: %i[team my_projects feedbacks]
   def new
     @project = Project.new
   end
@@ -69,7 +69,7 @@ class ProjectsController < ApplicationController
     project = Project.find(params[:id])
     return unless project.user == current_user
     project.update_column(:open, false)
-    redirect_to new_feedback_path(project.id),
+    redirect_to feedbacks_projects_path,
                 notice: 'Projeto encerrado com sucesso! Aproveite e dê o feedback dos profissionais que participaram '
   end
 
@@ -83,17 +83,29 @@ class ProjectsController < ApplicationController
   end
 
   def feedbacks
-    projects = []
-    current_professional.proposals.accepted.each { |prop| projects << prop.project }
-    @fb_user = []
-    @fb_proj = []
-    projects.each do |proj|
-      fb_u = current_professional.feedbacks.user_f.where(project: proj)
-      fb_p = current_professional.feedbacks.project_f.where(project: proj)
-      @fb_user << proj if fb_u.blank?
-      @fb_proj << proj if fb_p.blank?
+    if professional_signed_in?
+      projects = []
+      current_professional.proposals.accepted.each { |prop| projects << prop.project }
+      @fb_user = []
+      @fb_proj = []
+      projects.each do |proj|
+        fb_u = current_professional.feedbacks.user_f.where(project: proj)
+        fb_p = current_professional.feedbacks.project_f.where(project: proj)
+        @fb_user << proj if fb_u.blank?
+        @fb_proj << proj if fb_p.blank?
+      end
+      @feedback_proj = Feedback.new
+      @feedback_user = ProfessionalFeedback.new
+    elsif user_signed_in?
+      @proposals = []
+      current_user.projects.each do |proj|
+        proj.proposals.accepted.each do |prop| 
+          return if ProfessionalFeedback.where(professional_id: prop.professional_id, user: current_user).present?
+          @proposals << prop
+        end
+      end
+      @prof_feedback = ProfessionalFeedback.new
     end
-    @feedback = Feedback.new
   end
 
   def user_favorite
