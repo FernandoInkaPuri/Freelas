@@ -84,18 +84,14 @@ class ProjectsController < ApplicationController
 
   def feedbacks
     if professional_signed_in?
-      projects = []
-      current_professional.proposals.accepted.each { |prop| projects << prop.project }
-      @fb_user = []
-      @fb_proj = []
-      projects.each do |proj|
-        fb_u = current_professional.feedbacks.user_f.where(project: proj)
-        fb_p = current_professional.feedbacks.project_f.where(project: proj)
-        @fb_user << proj if fb_u.blank?
-        @fb_proj << proj if fb_p.blank?
+      @proposals_projects = []
+      @proposals_users = []
+      current_professional.proposals.accepted.each do |prop|
+        @proposals_projects << prop unless current_professional.feedbacks.where(project_id: prop.project.id).present?
+        @proposals_users << prop unless current_professional.user_feedbacks.where(project_id: prop.project.id).present?
       end
-      @feedback_proj = Feedback.new
-      @feedback_user = ProfessionalFeedback.new
+      @proj_feedback = Feedback.new
+      @user_feedback = UserFeedback.new
     elsif user_signed_in?
       @proposals = []
       current_user.projects.each do |proj|

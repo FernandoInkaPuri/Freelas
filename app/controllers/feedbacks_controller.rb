@@ -26,11 +26,15 @@ class FeedbacksController < ApplicationController
   end
 
   def create
-    @project = Project.find(params[:project_id])
-    if user_signed_in?
-      create_f_to_prof
-    elsif professional_signed_in?
-      create_f_user
+    project = Project.find(params[:project_id])
+    @proj_feedback = current_professional.feedbacks.new(proj_params)
+    @proj_feedback.project = params[:project_id]
+    if @prof_feedback.save
+      redirect_to feedbacks_projects_path, 
+      notice: "Feedback de #{@prof_feedback.professional.profile.social_name} enviado com sucesso!"
+    else
+      redirect_to feedbacks_projects_path, 
+      notice: "Preencha os campos corretamente"
     end
   end
 
@@ -81,5 +85,9 @@ class FeedbacksController < ApplicationController
     else
       render :new
     end
+  end
+
+  def prof_params
+    params.require(:professional_feedback).permit(:opinion, :nota)
   end
 end

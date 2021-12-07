@@ -1,33 +1,40 @@
 <h3>Aproveite para dar o feedback ao Contratador e ao Projeto</h3>
 <% if professional_signed_in? %>
-  <% @fb_user.each do |fb| %> 
-    <p>Projeto <%= fb.title %> de <%= fb.user.email %><p> 
-    <%= form_with model: @feedback, url: project_feedbacks_path(user_id: fb.user.id,project_id: fb.id) do |f| %></p>
-      <%= f.hidden_field(:feedback_type, value: 'user_f') %>
-      <p><%= f.label :opinion, "Contratador:" %>
-      <%= f.text_field :opinion %></p>
-      <% @feedback.errors.full_messages_for(:opinion).each do |erro| %>
-        <%= erro %>
-      <% end %>
-      <p><%= f.label :nota, "Nota: " %>
-      <%= f.text_field :nota %></p>
-      <% @feedback.errors.full_messages_for(:nota).each do |erro| %>
-        <%= erro %>
-      <% end %>
-      <%= f.submit 'Enviar' %></p>
-    <% end %><br>
+  <% if @proposals_projects.present?  %>
+    <% @proposals_projects.each do |prop|%>
+      <p><%= prop.project.name %>
+      <%= form_with model: @proj_feedback, url: feedbacks_path(project_id: prop.project.id) do |f| %></p>
+        <p><%= f.label :opinion, "Insira o Feedback: " %>
+        <%= f.text_field :opinion %></p>
+        <% @proj_feedback.errors.full_messages_for(:opinion).each do |erro| %>
+            <%= erro %>
+        <% end %>
+        <p><%= f.label :nota, "Nota: " %>
+        <%= f.text_field :nota %></p>
+        <% @proj_feedback.errors.full_messages_for(:nota).each do |erro| %>
+            <%= erro %>
+        <% end %>
+        <%= f.submit 'Enviar' %></p>
+      <% end %><br>
+    <% end %>
   <% end %>
-  <% @fb_proj.each do |fb| %>  
-    <p>Projeto <%= fb.title %> de <%= fb.user.email %><p>
-    <%= form_with model: @feedback, url: project_feedbacks_path(user_id: fb.user.id,project_id: fb.id) do |f| %></p>
-      <%= f.hidden_field(:feedback_type, value: 'project_f') %>
-      <p><%= f.label :opinion, "Projeto: " %>
-      <%= f.text_field :opinion %></p>
-      <% @feedback.errors.full_messages_for(:opinion).each do |erro| %>
-        <%= erro %>
-      <% end %>
-      <%= f.submit 'Enviar' %></p>
-    <% end %><br>
+  <% if @proposals_users.present?  %>
+    <% @proposals_users.each do |prop|%>
+      <p><%= prop.project.name %>
+      <%= form_with model: @user_feedback, url: feedbacks_path(project_id: prop.project.id) do |f| %></p>
+        <p><%= f.label :opinion, "Insira o Feedback: " %>
+        <%= f.text_field :opinion %></p>
+        <% @user_feedback.errors.full_messages_for(:opinion).each do |erro| %>
+            <%= erro %>
+        <% end %>
+        <p><%= f.label :nota, "Nota: " %>
+        <%= f.text_field :nota %></p>
+        <% @user_feedback.errors.full_messages_for(:nota).each do |erro| %>
+            <%= erro %>
+        <% end %>
+        <%= f.submit 'Enviar' %></p>
+      <% end %><br>
+    <% end %>
   <% end %>
 <% elsif user_signed_in?%>
   <% if @proposals.present?  %>

@@ -92,7 +92,7 @@ describe 'User ends project' do
     end
     click_on 'Feedbacks'
     
-    first(:label, 'Contratador').set('É um bom contratador')
+    first(:label, 'Feedback Contratador').set('É um bom contratador')
     first(:label, 'Nota').set('5')
     first(:css, 'form').click_on 'Enviar'
     
