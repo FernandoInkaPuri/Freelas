@@ -41,8 +41,8 @@ describe 'User ends project' do
     click_on projeto.title.to_s
     click_on 'Aceitar proposta'
     click_on 'Encerrar Projeto'
-    fill_in 'Insira o Feedback', with: 'Ótimo desenvolvedor, gosta do que faz'
-    fill_in 'Nota', with: '5'
+    fill_in 'Feedback:', with: 'Ótimo desenvolvedor, gosta do que faz'
+    fill_in 'Nota:', with: '5'
     click_on 'Enviar'
 
     expect(page).to have_content("Feedback de #{perfil.social_name} enviado com sucesso!")
@@ -67,16 +67,16 @@ describe 'User ends project' do
     click_on projeto.title.to_s
     click_on 'Aceitar proposta'
     click_on 'Encerrar Projeto'
-    first(:label, 'Feedback').set('Ótimo desenvolvedor, gosta do que faz')
-    first(:label, 'Nota').set('5')
-    first(:css, 'form').click_on 'Enviar'
+    fill_in 'Feedback:', with: 'Ótimo desenvolvedor, gosta do que faz'
+    fill_in 'Nota:', with: '5'
+    click_on 'Enviar'
     visit profile_path(perfil)
 
     expect(page).to have_content('Nota: 5')
     expect(page).to have_content(perfil.social_name.to_s)
   end
 
-  it 'and professional gives feedback' do
+  it 'and professional gives feedback to contractor' do
     trabalhador = create(:professional)
     create(:profile, professional: trabalhador)
     contratador = create(:user)
@@ -91,11 +91,38 @@ describe 'User ends project' do
       click_on 'Entrar'
     end
     click_on 'Feedbacks'
-    
-    first(:label, 'Feedback Contratador').set('É um bom contratador')
-    first(:label, 'Nota').set('5')
-    first(:css, 'form').click_on 'Enviar'
+
+    within '.contractorForm' do
+      fill_in 'Feedback do Contratador:', with: 'Ótimo desenvolvedor, gosta do que faz'
+      fill_in 'Nota do Contratador:', with: '5'
+      click_on 'Enviar'
+    end
     
     expect(page).to have_content("Feedback de #{contratador.email} enviado com sucesso!")
+  end
+
+  it 'and professional gives feedback to project' do
+    trabalhador = create(:professional)
+    create(:profile, professional: trabalhador)
+    contratador = create(:user)
+    projeto = create(:project, user: contratador)
+    create(:proposal, project: projeto, professional: trabalhador,
+                      reason: 'Fazer um ótimo trabalho', status_proposal: 5)
+    visit root_path
+    click_on 'Entrar como profissional'
+    fill_in 'Email', with: trabalhador.email
+    fill_in 'Senha', with: trabalhador.password
+    within 'form' do
+      click_on 'Entrar'
+    end
+    click_on 'Feedbacks'
+
+    within '.projectForm' do
+      fill_in 'Feedback do Projeto:', with: 'Ótimo desenvolvedor, gosta do que faz'
+      fill_in 'Nota do Projeto:', with: '5'
+      click_on 'Enviar'
+    end
+    
+    expect(page).to have_content("Feedback de Projeto Marketplace enviado com sucesso!")
   end
 end

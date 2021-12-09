@@ -63,13 +63,10 @@ class ProfileController < ApplicationController
   end
 
   def nota
-    @feedbacks = Feedback.where(professional: @profile.professional)
+    @feedbacks = ProfessionalFeedback.where(professional: @profile.professional)
     n = []
-    @feedbacks.each do |fb|
-      if fb.nota != [] && !fb.nota.nil?
-        n << fb.nota
-        @nota = n.reduce { |sum, num| sum + num } / n.size
-      end
-    end
+    @feedbacks.each{|fb| n << fb.grade if fb.grade.present? }
+    @nota = n.reduce { |sum, num| sum + num } / n.size if n.present?
+    return @nota
   end
 end

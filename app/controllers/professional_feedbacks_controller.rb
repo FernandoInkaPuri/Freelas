@@ -1,4 +1,5 @@
 class ProfessionalFeedbacksController < ApplicationController
+  before_action :authenticate_user!, only: %i[create]
 
   def create
     @prof_feedback = current_user.professional_feedbacks.new(prof_params)

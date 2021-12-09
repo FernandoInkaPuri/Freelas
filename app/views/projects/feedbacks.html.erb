@@ -2,58 +2,60 @@
 <% if professional_signed_in? %>
   <% if @proposals_projects.present?  %>
     <% @proposals_projects.each do |prop|%>
-      <p><%= prop.project.name %>
-      <%= form_with model: @proj_feedback, url: feedbacks_path(project_id: prop.project.id) do |f| %></p>
-        <p><%= f.label :opinion, "Insira o Feedback: " %>
-        <%= f.text_field :opinion %></p>
-        <% @proj_feedback.errors.full_messages_for(:opinion).each do |erro| %>
-            <%= erro %>
-        <% end %>
-        <p><%= f.label :nota, "Nota: " %>
-        <%= f.text_field :nota %></p>
-        <% @proj_feedback.errors.full_messages_for(:nota).each do |erro| %>
-            <%= erro %>
-        <% end %>
-        <%= f.submit 'Enviar' %></p>
-      <% end %><br>
+      <p>Feedback de <%= prop.project.title %>
+      <div class="projectForm">
+        <%= form_with model: @proj_feedback, url: feedbacks_path(project_id: prop.project.id) do |f| %></p>
+          <p><%= f.label :opinion, "Feedback do Projeto: " %>
+          <%= f.text_field :opinion %></p>
+          <% @proj_feedback.errors.full_messages_for(:opinion).each do |erro| %>
+              <%= erro %>
+          <% end %>
+          <p><%= f.label :nota, "Nota do Projeto: " %>
+          <%= f.text_field :nota %></p>
+          <% @proj_feedback.errors.full_messages_for(:nota).each do |erro| %>
+              <%= erro %>
+          <% end %>
+          <%= f.submit 'Enviar' %></p>
+        <% end %><br>
+      </div>
     <% end %>
   <% end %>
   <% if @proposals_users.present?  %>
     <% @proposals_users.each do |prop|%>
-      <p><%= prop.project.name %>
-      <%= form_with model: @user_feedback, url: feedbacks_path(project_id: prop.project.id) do |f| %></p>
-        <p><%= f.label :opinion, "Insira o Feedback: " %>
-        <%= f.text_field :opinion %></p>
-        <% @user_feedback.errors.full_messages_for(:opinion).each do |erro| %>
-            <%= erro %>
-        <% end %>
-        <p><%= f.label :nota, "Nota: " %>
-        <%= f.text_field :nota %></p>
-        <% @user_feedback.errors.full_messages_for(:nota).each do |erro| %>
-            <%= erro %>
-        <% end %>
-        <%= f.submit 'Enviar' %></p>
-      <% end %><br>
+      <p><%= prop.project.user.email %>
+      <div class="contractorForm">
+        <%= form_with model: @user_feedback, url: user_feedbacks_path(project_id: prop.project.id) do |f| %></p>
+          <p><%= f.label :opinion, "Feedback do Contratador: " %>
+          <%= f.text_field :opinion %></p>
+          <% @user_feedback.errors.full_messages_for(:opinion).each do |erro| %>
+              <%= erro %>
+          <% end %>
+          <p><%= f.label :nota, "Nota do Contratador: " %>
+          <%= f.text_field :nota %></p>
+          <% @user_feedback.errors.full_messages_for(:nota).each do |erro| %>
+              <%= erro %>
+          <% end %>
+          <%= f.submit 'Enviar' %></p>
+        <% end %><br>
+      </div>
     <% end %>
   <% end %>
-<% elsif user_signed_in?%>
-  <% if @proposals.present?  %>
-    <% @proposals.each do |prop|%>
-      <p><%= prop.professional.profile.social_name %>
-      <%= form_with model: @prof_feedback, url: professional_feedbacks_path(professional_id: prop.professional.id, user_id: current_user.id) do |f| %></p>
-        <p><%= f.label :opinion, "Insira o Feedback: " %>
-        <%= f.text_field :opinion %></p>
-        <% @prof_feedback.errors.full_messages_for(:opinion).each do |erro| %>
-            <%= erro %>
-        <% end %>
-        <p><%= f.label :grade, "Nota: " %>
-        <%= f.text_field :grade %></p>
-        <% @prof_feedback.errors.full_messages_for(:grade).each do |erro| %>
-            <%= erro %>
-        <% end %>
-        <%= f.submit 'Enviar' %></p>
-      <% end %><br>
-    <% end %>
+<% elsif user_signed_in? && @proposals.present? %>
+  <% @proposals.each do |prop|%>
+    <p><%= prop.professional.profile.social_name %>
+    <%= form_with model: @prof_feedback, url: professional_feedbacks_path(professional_id: prop.professional.id, user_id: current_user.id) do |f| %></p>
+      <p><%= f.label :opinion, "Feedback: " %>
+      <%= f.text_field :opinion %></p>
+      <% @prof_feedback.errors.full_messages_for(:opinion).each do |erro| %>
+          <%= erro %>
+      <% end %>
+      <p><%= f.label :grade, "Nota: " %>
+      <%= f.text_field :grade %></p>
+      <% @prof_feedback.errors.full_messages_for(:grade).each do |erro| %>
+          <%= erro %>
+      <% end %>
+      <%= f.submit 'Enviar' %></p>
+    <% end %><br>
   <% end %>
 <% end %>
   
