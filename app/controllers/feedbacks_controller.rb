@@ -11,7 +11,7 @@ class FeedbacksController < ApplicationController
       notice: "Feedback de #{project.title} enviado com sucesso!"
     else
       redirect_to feedbacks_projects_path, 
-      notice: "Preencha os campos corretamente"
+      notice: "Preencha os campos corretamente!"
     end
   end
 

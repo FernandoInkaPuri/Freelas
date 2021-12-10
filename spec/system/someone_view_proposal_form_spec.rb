@@ -36,11 +36,11 @@ describe 'Someone view proposal form' do
       trabalhador = create(:professional, status_profile: 10)
       create(:profile, professional: trabalhador)
       create(:project)
-      # Stub e Mok
-      mailer_spy = class_spy(ProposalMailer)
-      stub_const('ProposalMailer', mailer_spy)
+      # Stub e Mok, stub é na preparação e mok é na expectativa.
+      mailer_spy = class_spy(ProposalMailer) #cria espião para espionar o que acontece com a classe
+      stub_const('ProposalMailer', mailer_spy) #coloca o espião no lugar da classe
       mail = double
-      allow(ProposalMailer)
+      allow(ProposalMailer) #permite que a classe receba um metodo e tenha um retorno que eu defini.
         .to receive(:notify_new_proposal).and_return(mail)
       allow(mail).to receive(:deliver_now)
 

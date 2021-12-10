@@ -109,8 +109,8 @@ class ProjectsController < ApplicationController
     favorito = FavoriteUser.where(user: project.user, professional: current_professional)
     if favorito.present?
       favorito.each do |fav|
-        fav.unpreferred! redirect_back(fallback_location: root_path) if fav.preferred?
-        fav.preferred! redirect_back(fallback_location: root_path) if fav.unpreferred?
+        return fav.unpreferred!, redirect_back(fallback_location: root_path) if fav.preferred?
+        return fav.preferred!, redirect_back(fallback_location: root_path) if fav.unpreferred?
       end
     else
       favorite = FavoriteUser.new(user: project.user, professional: current_professional)

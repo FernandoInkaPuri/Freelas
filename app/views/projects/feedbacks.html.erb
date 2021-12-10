@@ -30,9 +30,9 @@
           <% @user_feedback.errors.full_messages_for(:opinion).each do |erro| %>
               <%= erro %>
           <% end %>
-          <p><%= f.label :nota, "Nota do Contratador: " %>
-          <%= f.text_field :nota %></p>
-          <% @user_feedback.errors.full_messages_for(:nota).each do |erro| %>
+          <p><%= f.label :grade, "Nota do Contratador: " %>
+          <%= f.text_field :grade %></p>
+          <% @user_feedback.errors.full_messages_for(:grade).each do |erro| %>
               <%= erro %>
           <% end %>
           <%= f.submit 'Enviar' %></p>
