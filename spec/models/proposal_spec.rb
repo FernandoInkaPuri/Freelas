@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Proposal, type: :model do
+  include ActiveSupport::Testing::TimeHelpers
+  it 'code must be uniq' do
+    proposal = create(:proposal)
+    allow(SecureRandom).to receive(:alphanumeric).and_return(proposal.code, 'ARPA1212')
+    other_proposal = create(:proposal)
+
+    expect(other_proposal).to be_valid
+    expect(other_proposal.code).to eq('ARPA1212')
+  end
   describe 'validations' do
     subject { Proposal.new }
 

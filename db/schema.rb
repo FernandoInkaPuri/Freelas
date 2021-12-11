@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_07_060945) do
+ActiveRecord::Schema.define(version: 2021_12_10_174224) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -139,6 +139,8 @@ ActiveRecord::Schema.define(version: 2021_12_07_060945) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "status_proposal", default: 0
     t.string "justify"
+    t.string "code"
+    t.index ["code"], name: "index_proposals_on_code", unique: true
     t.index ["professional_id"], name: "index_proposals_on_professional_id"
     t.index ["project_id"], name: "index_proposals_on_project_id"
   end
