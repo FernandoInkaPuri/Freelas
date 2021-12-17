@@ -14,13 +14,8 @@ describe 'User view proposals' do
     create(:proposal, project: projeto, professional: trabalhador2,
                       reason: 'Fazer o melhor trabalho possível')
 
+    login_as contratador, scope: :user
     visit root_path
-    click_on 'Entrar como contratador'
-    fill_in 'Email', with: contratador.email
-    fill_in 'Senha', with: contratador.password
-    within 'form' do
-      click_on 'Entrar'
-    end
     click_on 'Projeto Marketplace'
 
     expect(page).to have_content(perfil1.social_name.to_s)
@@ -42,13 +37,8 @@ describe 'User view proposals' do
     create(:proposal, project: projeto, professional: trabalhador2,
                       reason: 'Fazer o melhor trabalho possível')
 
+    login_as contratador, scope: :user
     visit root_path
-    click_on 'Entrar como contratador'
-    fill_in 'Email', with: contratador.email
-    fill_in 'Senha', with: contratador.password
-    within 'form' do
-      click_on 'Entrar'
-    end
     click_on 'Projeto Marketplace'
     click_on 'Tupac Amaru'
 
@@ -67,13 +57,8 @@ describe 'User view proposals' do
     create(:proposal, project: projeto, professional: trabalhador1,
                       reason: 'Fazer um ótimo trabalho')
 
+    login_as contratador, scope: :user
     visit root_path
-    click_on 'Entrar como contratador'
-    fill_in 'Email', with: contratador.email
-    fill_in 'Senha', with: contratador.password
-    within 'form' do
-      click_on 'Entrar'
-    end
     click_on 'Projeto Marketplace'
     click_on 'Rejeitar proposta'
 
@@ -90,13 +75,8 @@ describe 'User view proposals' do
     create(:proposal, project: projeto, professional: trabalhador,
                       reason: 'Fazer um ótimo trabalho')
 
+    login_as contratador, scope: :user
     visit root_path
-    click_on 'Entrar como contratador'
-    fill_in 'Email', with: contratador.email
-    fill_in 'Senha', with: contratador.password
-    within 'form' do
-      click_on 'Entrar'
-    end
     click_on 'Projeto Marketplace'
     click_on 'Encerrar inscrições'
     click_on 'Logout'
@@ -126,13 +106,8 @@ describe 'User view proposals' do
     create(:proposal, project: projeto, professional: trabalhador2,
                       reason: 'Fazer o melhor trabalho possível', status_proposal: 5)
 
+    login_as contratador, scope: :user
     visit root_path
-    click_on 'Entrar como contratador'
-    fill_in 'Email', with: contratador.email
-    fill_in 'Senha', with: contratador.password
-    within 'form' do
-      click_on 'Entrar'
-    end
     click_on 'Projeto Marketplace'
     click_on 'Time do Projeto'
 
@@ -151,13 +126,8 @@ describe 'User view proposals' do
     create(:proposal, project: projeto, professional: trabalhador,
                       reason: 'Fazer um ótimo trabalho')
 
+    login_as contratador, scope: :user
     visit root_path
-    click_on 'Entrar como contratador'
-    fill_in 'Email', with: contratador.email
-    fill_in 'Senha', with: contratador.password
-    within 'form' do
-      click_on 'Entrar'
-    end
     click_on 'Projeto Marketplace'
     click_on 'Aceitar proposta'
 

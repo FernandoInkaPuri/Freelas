@@ -8,15 +8,10 @@ describe 'Professional gives feedback' do
     projeto = create(:project, user: contratador)
     create(:proposal, project: projeto, professional: trabalhador,
                       reason: 'Fazer um ótimo trabalho', status_proposal: 5)
+
+    login_as trabalhador, scope: :professional
     visit root_path
-    click_on 'Entrar como profissional'
-    fill_in 'Email', with: trabalhador.email
-    fill_in 'Senha', with: trabalhador.password
-    within 'form' do
-      click_on 'Entrar'
-    end
     click_on 'Feedbacks'
-  
     within '.contractorForm' do
       fill_in 'Feedback do Contratador:', with: 'Muito bom trabalhar com ele'
       fill_in 'Nota do Contratador:', with: '5'
@@ -33,15 +28,10 @@ describe 'Professional gives feedback' do
     projeto = create(:project, user: contratador)
     create(:proposal, project: projeto, professional: trabalhador,
                       reason: 'Fazer um ótimo trabalho', status_proposal: 5)
+
+    login_as trabalhador, scope: :professional
     visit root_path
-    click_on 'Entrar como profissional'
-    fill_in 'Email', with: trabalhador.email
-    fill_in 'Senha', with: trabalhador.password
-    within 'form' do
-      click_on 'Entrar'
-    end
     click_on 'Feedbacks'
-  
     within '.contractorForm' do
       fill_in 'Feedback do Contratador:', with: ''
       fill_in 'Nota do Contratador:', with: ''
@@ -58,15 +48,10 @@ describe 'Professional gives feedback' do
     projeto = create(:project, user: contratador)
     create(:proposal, project: projeto, professional: trabalhador,
                       reason: 'Fazer um ótimo trabalho', status_proposal: 5)
+
+    login_as trabalhador, scope: :professional
     visit root_path
-    click_on 'Entrar como profissional'
-    fill_in 'Email', with: trabalhador.email
-    fill_in 'Senha', with: trabalhador.password
-    within 'form' do
-      click_on 'Entrar'
-    end
     click_on 'Feedbacks'
-  
     within '.projectForm' do
       fill_in 'Feedback do Projeto:', with: 'Ótimo desenvolvedor, gosta do que faz'
       fill_in 'Nota do Projeto:', with: '5'
@@ -83,15 +68,10 @@ describe 'Professional gives feedback' do
     projeto = create(:project, user: contratador)
     create(:proposal, project: projeto, professional: trabalhador,
                       reason: 'Fazer um ótimo trabalho', status_proposal: 5)
+
+    login_as trabalhador, scope: :professional
     visit root_path
-    click_on 'Entrar como profissional'
-    fill_in 'Email', with: trabalhador.email
-    fill_in 'Senha', with: trabalhador.password
-    within 'form' do
-      click_on 'Entrar'
-    end
     click_on 'Feedbacks'
-  
     within '.projectForm' do
       fill_in 'Feedback do Projeto:', with: ''
       fill_in 'Nota do Projeto:', with: ''

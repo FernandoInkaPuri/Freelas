@@ -9,13 +9,8 @@ describe 'User sets favorite' do
     create(:proposal, project: projeto, professional: trabalhador,
                       reason: 'Fazer um ótimo trabalho')
 
+    login_as contratador, scope: :user
     visit root_path
-    click_on 'Entrar como contratador'
-    fill_in 'Email', with: contratador.email
-    fill_in 'Senha', with: contratador.password
-    within 'form' do
-      click_on 'Entrar'
-    end
     click_on 'Projeto Marketplace'
     click_on perfil.social_name.to_s
     click_on 'Marcar como favorito'

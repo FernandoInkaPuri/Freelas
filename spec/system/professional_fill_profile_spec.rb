@@ -3,15 +3,10 @@ require 'rails_helper'
 describe 'Professional fill profile' do
   it 'successfuly' do
     trabalhador = create(:professional)
+    
+    login_as trabalhador, scope: :professional
     visit root_path
-
-    click_on 'Entrar como profissional'
-
-    fill_in 'Email', with: trabalhador.email
-    fill_in 'Senha', with: trabalhador.password
-    within 'form' do
-      click_on 'Entrar'
-    end
+    
     click_on 'Meu perfil'
     fill_in 'Nome Completo', with: 'Luiz Fernando'
     fill_in 'Nome Social', with: 'Luiz Fernando'

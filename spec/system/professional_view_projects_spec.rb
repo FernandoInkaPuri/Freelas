@@ -4,20 +4,14 @@ describe 'Professional view projects' do
   it 'successfuly' do
     trabalhador = create(:professional, status_profile: 10)
     projeto = create(:project, description: FFaker::LoremBR.paragraph)
+
+
+    login_as trabalhador, scope: :professional
     visit root_path
-
-    click_on 'Entrar como profissional'
-
-    fill_in 'Email', with: trabalhador.email
-    fill_in 'Senha', with: trabalhador.password
-    within 'form' do
-      click_on 'Entrar'
-    end
-
-    click_on 'Projeto Marketplace'
+    click_on "#{projeto.title}"
 
     expect(page).to have_content(trabalhador.email)
-    expect(page).to have_content('Projeto Marketplace')
+    expect(page).to have_content("#{projeto.title}")
     expect(page).to have_content(projeto.description)
     expect(page).to have_content('Habilidade desejadas: Ruby on rails')
     expect(page).to have_content('Valor max por hora: R$ 100,00')
@@ -33,15 +27,8 @@ describe 'Professional view projects' do
     proposta = create(:proposal, project: projeto, professional: trabalhador,
                                  reason: 'Fazer um ótimo trabalho')
 
+    login_as trabalhador, scope: :professional
     visit root_path
-
-    click_on 'Entrar como profissional'
-
-    fill_in 'Email', with: trabalhador.email
-    fill_in 'Senha', with: trabalhador.password
-    within 'form' do
-      click_on 'Entrar'
-    end
     click_on 'Minhas Propostas'
 
     expect(page).to have_content(projeto.title.to_s)
@@ -58,15 +45,9 @@ describe 'Professional view projects' do
     create(:proposal, project: projeto, professional: trabalhador,
                       reason: 'Fazer um ótimo trabalho')
 
+    login_as trabalhador, scope: :professional
     visit root_path
-
-    click_on 'Entrar como profissional'
-    fill_in 'Email', with: trabalhador.email
-    fill_in 'Senha', with: trabalhador.password
-    within 'form' do
-      click_on 'Entrar'
-    end
-    click_on 'Projeto Marketplace'
+    click_on "#{projeto.title}"
     click_on 'Marcar'
 
     expect(page).to have_content('Contratador marcado como favorito')

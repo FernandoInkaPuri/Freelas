@@ -8,24 +8,17 @@ describe 'Someone view proposal form' do
       contratador = create(:user)
       projeto = create(:project, user: contratador)
 
+      
+      login_as trabalhador, scope: :professional
       visit root_path
-
-      click_on 'Entrar como profissional'
-
-      fill_in 'Email', with: trabalhador.email
-      fill_in 'Senha', with: trabalhador.password
-      within 'form' do
-        click_on 'Entrar'
-      end
-
       click_on projeto.title.to_s
       click_on 'Candidatar para projeto'
       fill_in 'Motivo:', with: ''
       fill_in 'Valor/hora', with: 'churrasco'
       fill_in 'Horas disponíveis', with: 'batata'
       fill_in 'Expectativa', with: ''
-
       click_on 'Enviar proposta'
+
       expect(page).to have_content('Motivo não pode ficar em branco')
       expect(page).to have_content('Valor precisa ser um número')
       expect(page).to have_content('Horas precisa ser um número')
@@ -44,23 +37,14 @@ describe 'Someone view proposal form' do
         .to receive(:notify_new_proposal).and_return(mail)
       allow(mail).to receive(:deliver_now)
 
+      login_as trabalhador, scope: :professional
       visit root_path
-
-      click_on 'Entrar como profissional'
-
-      fill_in 'Email', with: trabalhador.email
-      fill_in 'Senha', with: trabalhador.password
-      within 'form' do
-        click_on 'Entrar'
-      end
-
       click_on 'Projeto Marketplace'
       click_on 'Candidatar para projeto'
       fill_in 'Motivo:', with: 'Quero trabalhar'
       fill_in 'Valor/hora', with: '50'
       fill_in 'Horas disponíveis', with: '15'
       fill_in 'Expectativa', with: 'Adquirir conhecimento'
-
       click_on 'Enviar proposta'
 
       expect(ProposalMailer).to have_received(:notify_new_proposal)
@@ -78,16 +62,9 @@ describe 'Someone view proposal form' do
       projeto = create(:project, user: contratador)
       create(:proposal, project: projeto, professional: trabalhador,
                         reason: 'Fazer um ótimo trabalho')
+      
+      login_as trabalhador, scope: :professional
       visit root_path
-
-      click_on 'Entrar como profissional'
-
-      fill_in 'Email', with: trabalhador.email
-      fill_in 'Senha', with: trabalhador.password
-      within 'form' do
-        click_on 'Entrar'
-      end
-
       click_on 'Minhas Propostas'
       click_on 'Cancelar Proposta'
 
@@ -98,17 +75,11 @@ describe 'Someone view proposal form' do
   context 'User view proposal' do
     it 'and try make proposal' do
       contratador = create(:user)
-      create(:project, user: contratador)
+      projeto = create(:project, user: contratador)
 
+      login_as contratador, scope: :user
       visit root_path
-      click_on 'Entrar como contratador'
-
-      fill_in 'Email', with: contratador.email
-      fill_in 'Senha', with: contratador.password
-      within 'form' do
-        click_on 'Entrar'
-      end
-      click_on 'Projeto Marketplace'
+      click_on projeto.title
 
       expect(page).not_to have_link('Candidatar para projeto')
     end

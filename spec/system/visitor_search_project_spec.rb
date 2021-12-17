@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-describe 'Visit search projects' do
+describe 'Visitor search projects' do
   it 'successfuly' do
-    chefe = create(:user)
-    create(:project, user: chefe)
+    contratador = create(:user)
+    create(:project, user: contratador)
     create(:project, title: 'Projeto Cars',
-                     description: 'Iremos programar um site para aluguel de carros', user: chefe)
+                     description: 'Iremos programar um site para aluguel de carros', user: contratador)
 
     visit root_path
 

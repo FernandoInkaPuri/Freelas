@@ -3,14 +3,8 @@ require 'rails_helper'
 describe 'User register project' do
   it 'successfuly' do
     contratador = create(:user)
+    login_as contratador, scope: :user
     visit root_path
-    click_on 'Entrar como contratador'
-
-    fill_in 'Email', with: contratador.email
-    fill_in 'Senha', with: contratador.password
-    within 'form' do
-      click_on 'Entrar'
-    end
     click_on 'Cadastrar Projeto'
     fill_in 'Título', with: 'Projeto inovador'
     fill_in 'Descrição', with: 'Realizaremos um projeto em ruby on rails'
