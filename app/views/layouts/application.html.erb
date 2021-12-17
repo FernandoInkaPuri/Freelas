@@ -16,7 +16,8 @@
     <%= link_to 'Logout', destroy_user_session_path, method: :delete %></p>
     <h1> Freelas </h1>
     <h3> A melhor plataforma freelancer do Brasil </h3>
-    <nav><%= link_to 'Meus Projetos', my_projects_projects_path %>
+    <nav><%= link_to 'Home', root_path%>
+    <%= link_to 'Meus Projetos', my_projects_projects_path %>
     <%= link_to 'Cadastrar Projeto', new_project_path %>
     <%= link_to 'Feedbacks', feedbacks_projects_path %></nav>
   <% elsif professional_signed_in? %>
@@ -24,7 +25,8 @@
     <%= link_to 'Logout', destroy_professional_session_path, method: :delete %></p>
     <h1> Freelas </h1>
     <h3> A melhor plataforma freelancer do Brasil </h3>
-    <nav class="navbar navbar-default"><%= link_to 'Meu perfil', profile_path(current_professional) %>
+    <nav class="navbar navbar-default"><%= link_to 'Home', root_path%>
+    <%= link_to 'Meu perfil', profile_path(current_professional) %>
     <%= link_to 'Minhas Propostas', my_proposals_projects_path %>
     <%= link_to 'Feedbacks', feedbacks_projects_path %>
     <%= link_to 'Meus Projetos', my_projects_projects_path %></nav>

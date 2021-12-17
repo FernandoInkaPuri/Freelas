@@ -25,4 +25,10 @@ Rails.application.routes.draw do
     post 'set_favorite', on: :member
     post 'unfavorite', on: :member
   end
+
+  namespace :api do
+    namespace :v1 do
+      resources :projects, only: %i[index show create]
+    end
+  end
 end

@@ -11,11 +11,11 @@ class ProposalsController < ApplicationController
     @proposal = current_professional.proposals.new(proposal_params)
     @proposal.project = Project.find(params[:project_id])
     if @proposal.save
+      ProposalMailer.with(proposal: @proposal).notify_new_proposal.deliver_now
       redirect_to @proposal, notice: 'Proposta enviada com sucesso!'
     else
       render :new
     end
-    ProposalMailer.with(proposal: @proposal).notify_new_proposal.deliver_now
   end
 
   def show
@@ -56,6 +56,6 @@ class ProposalsController < ApplicationController
 
   def proposal_params
     params.require(:proposal).permit(:reason, :hour_value,
-                                     :hours_week, :expectation, :project_id, :professional_id, :justify)
+                                     :hours_week, :expectation, :justify, :code)
   end
 end
