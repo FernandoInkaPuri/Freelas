@@ -8,3 +8,7 @@ import Turbolinks from "turbolinks"
 
 Rails.start()
 Turbolinks.start()
+
+$(function () {
+    $('.dropdown-toggle').dropdown();
+}); 
