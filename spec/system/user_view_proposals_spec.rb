@@ -80,6 +80,7 @@ describe 'User view proposals' do
     click_on 'Projeto Marketplace'
     click_on 'Encerrar inscrições'
     click_on 'Logout'
+    click_on 'Entrar'
     click_on 'Entrar como profissional'
     fill_in 'Email', with: trabalhador.email
     fill_in 'Senha', with: trabalhador.password

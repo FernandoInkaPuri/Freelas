@@ -10,5 +10,5 @@ RSpec.describe Profile, type: :model do
     it { should validate_presence_of(:formation).with_message('não pode ficar em branco') }
     it { should validate_presence_of(:description).with_message('não pode ficar em branco') }
     it { should validate_presence_of(:experience).with_message('não pode ficar em branco') }
-  end  
+  end
 end

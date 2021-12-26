@@ -29,6 +29,7 @@ class ProjectsController < ApplicationController
     elsif can_see
       @project = Project.find(params[:id])
       return unless @project.user == current_user
+
       @propostas = @project.proposals.not_rated
     end
   end
@@ -47,6 +48,7 @@ class ProjectsController < ApplicationController
   def close_registration
     project = Project.find(params[:id])
     return unless project.user == current_user
+
     project.update_column(:open_registration, false)
     redirect_to project
   end
@@ -68,6 +70,7 @@ class ProjectsController < ApplicationController
   def close_project
     project = Project.find(params[:id])
     return unless project.user == current_user
+
     project.update_column(:open, false)
     redirect_to feedbacks_projects_path,
                 notice: 'Projeto encerrado com sucesso! Aproveite e dê o feedback dos profissionais que participaram '
@@ -95,8 +98,9 @@ class ProjectsController < ApplicationController
     elsif user_signed_in?
       @proposals = []
       current_user.projects.each do |proj|
-        proj.proposals.accepted.each do |prop| 
+        proj.proposals.accepted.each do |prop|
           return if ProfessionalFeedback.where(professional_id: prop.professional_id, user: current_user).present?
+
           @proposals << prop
         end
       end

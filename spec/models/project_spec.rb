@@ -11,5 +11,5 @@ RSpec.describe Project, type: :model do
     it { should validate_presence_of(:limit_date).with_message('não pode ficar em branco') }
     it { should validate_presence_of(:start_date).with_message('não pode ficar em branco') }
     it { should validate_presence_of(:end_date).with_message('não pode ficar em branco') }
-  end  
+  end
 end

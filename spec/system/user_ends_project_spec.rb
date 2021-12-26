@@ -13,7 +13,7 @@ describe 'User ends project' do
     visit root_path
     click_on projeto.title.to_s
     click_on 'Encerrar Projeto'
-    
+
     expect(page).to have_content('Projeto encerrado com sucesso!')
     expect(page).not_to have_content(projeto.title.to_s)
   end
@@ -24,8 +24,8 @@ describe 'User ends project' do
     contratador = create(:user)
     projeto = create(:project, user: contratador)
     create(:proposal, project: projeto, professional: trabalhador,
-                      reason: 'Fazer um ótimo trabalho')    
-                      
+                      reason: 'Fazer um ótimo trabalho')
+
     login_as contratador, scope: :user
     visit root_path
     click_on projeto.title.to_s
@@ -56,7 +56,7 @@ describe 'User ends project' do
     fill_in 'Nota:', with: ''
     click_on 'Enviar'
 
-    expect(page).to have_content("Preencha os campos corretamente!")
+    expect(page).to have_content('Preencha os campos corretamente!')
     expect(page).not_to have_content('Projeto Marketplace')
   end
 

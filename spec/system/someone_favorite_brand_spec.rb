@@ -14,7 +14,7 @@ describe 'someone favorite brand' do
     click_on projeto.title
     click_on 'Marcar'
 
-    expect(page).to have_content("Contratador marcado como favorito")
+    expect(page).to have_content('Contratador marcado como favorito')
   end
 
   it 'professional favorite contractor and desfavorite' do
@@ -31,7 +31,7 @@ describe 'someone favorite brand' do
     click_on 'Marcar'
     click_on 'Marcar'
 
-    expect(page).not_to have_content("Contratador marcado como favorito")
+    expect(page).not_to have_content('Contratador marcado como favorito')
   end
 
   it 'contractor favorite professional' do
@@ -48,9 +48,8 @@ describe 'someone favorite brand' do
     click_on projeto.title
     click_on trabalhador.profile.social_name
     click_on 'Marcar'
-    
 
-    expect(page).to have_content("Você marcou este profissional como Favorito!")
+    expect(page).to have_content('Você marcou este profissional como Favorito!')
   end
 
   it 'contractor favorite professional and desfavorite' do
@@ -67,8 +66,8 @@ describe 'someone favorite brand' do
     click_on projeto.title
     click_on trabalhador.profile.social_name
     click_on 'Marcar'
-    click_on 'Marcar'    
+    click_on 'Marcar'
 
-    expect(page).not_to have_content("Você marcou este profissional como Favorito!")
+    expect(page).not_to have_content('Você marcou este profissional como Favorito!')
   end
 end

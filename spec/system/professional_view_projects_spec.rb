@@ -5,13 +5,12 @@ describe 'Professional view projects' do
     trabalhador = create(:professional, status_profile: 10)
     projeto = create(:project, description: FFaker::LoremBR.paragraph)
 
-
     login_as trabalhador, scope: :professional
     visit root_path
-    click_on "#{projeto.title}"
+    click_on projeto.title.to_s
 
     expect(page).to have_content(trabalhador.email)
-    expect(page).to have_content("#{projeto.title}")
+    expect(page).to have_content(projeto.title.to_s)
     expect(page).to have_content(projeto.description)
     expect(page).to have_content('Habilidade desejadas: Ruby on rails')
     expect(page).to have_content('Valor max por hora: R$ 100,00')
@@ -47,7 +46,7 @@ describe 'Professional view projects' do
 
     login_as trabalhador, scope: :professional
     visit root_path
-    click_on "#{projeto.title}"
+    click_on projeto.title.to_s
     click_on 'Marcar'
 
     expect(page).to have_content('Contratador marcado como favorito')

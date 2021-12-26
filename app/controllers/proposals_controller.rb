@@ -31,6 +31,7 @@ class ProposalsController < ApplicationController
   def accept
     project = Proposal.find(params[:id]).project
     return unless current_user == project.user
+
     @proposal = Proposal.find(params[:id])
     @proposal.accepted!
     redirect_to @proposal.project, notice: 'Proposta aceita com sucesso!'
@@ -39,6 +40,7 @@ class ProposalsController < ApplicationController
   def reject
     project = Proposal.find(params[:id]).project
     return unless current_user == project.user
+
     @proposal = Proposal.find(params[:id])
     @proposal.rejected!
     @proposal.update_column(:justify, params[:justify])
@@ -48,6 +50,7 @@ class ProposalsController < ApplicationController
   def destroy
     prop = Proposal.find(params[:id])
     return unless current_professional == prop.professional
+
     prop.destroy
     redirect_to root_path, notice: 'Proposta cancelada com sucesso!'
   end

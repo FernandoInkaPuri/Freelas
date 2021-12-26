@@ -37,8 +37,8 @@ describe 'Professional gives feedback' do
       fill_in 'Nota do Contratador:', with: ''
       click_on 'Enviar'
     end
-    
-    expect(page).to have_content("Preencha os campos corretamente!")
+
+    expect(page).to have_content('Preencha os campos corretamente!')
   end
 
   it 'to project' do
@@ -57,8 +57,8 @@ describe 'Professional gives feedback' do
       fill_in 'Nota do Projeto:', with: '5'
       click_on 'Enviar'
     end
-    
-    expect(page).to have_content("Feedback de Projeto Marketplace enviado com sucesso!")
+
+    expect(page).to have_content('Feedback de Projeto Marketplace enviado com sucesso!')
   end
 
   it 'to project but fills wrong' do
@@ -77,9 +77,7 @@ describe 'Professional gives feedback' do
       fill_in 'Nota do Projeto:', with: ''
       click_on 'Enviar'
     end
-    
-    expect(page).to have_content("Preencha os campos corretamente!")
+
+    expect(page).to have_content('Preencha os campos corretamente!')
   end
 end
-
-

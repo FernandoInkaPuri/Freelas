@@ -19,5 +19,5 @@ RSpec.describe Proposal, type: :model do
     it { should validate_presence_of(:expectation).with_message('não pode ficar em branco') }
     it { should validate_numericality_of(:hour_value).with_message('precisa ser um número') }
     it { should validate_numericality_of(:hours_week).with_message('precisa ser um número') }
-  end  
+  end
 end

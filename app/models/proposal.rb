@@ -11,6 +11,6 @@ class Proposal < ApplicationRecord
 
   def generate_code
     self.code = SecureRandom.alphanumeric(8).upcase
-    generate_code if Proposal.exists?(code: code)    
-  end    
+    generate_code if Proposal.exists?(code: code)
+  end
 end

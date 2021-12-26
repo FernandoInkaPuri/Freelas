@@ -31,31 +31,32 @@
         <h1> Freelas </h1>
         <h3> A melhor plataforma freelancer do Brasil </h3>
         <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
-          <ul class="navbar-nav">
-            <li class="nav-item"><%= link_to 'Home', root_path%></li>
-            <li class="nav-item"><%= link_to 'Meu perfil', profile_path(current_professional) %></li>
-            <li class="nav-item"><%= link_to 'Minhas Propostas', my_proposals_projects_path %></li>
-            <li class="nav-item"><%= link_to 'Feedbacks', feedbacks_projects_path %></li>
-            <li class="nav-item"><%= link_to 'Meus Projetos', my_projects_projects_path %></li>
-          </ul>
+        <div class="d-flex bd-highlight">
+            <ul class="navbar-nav">
+              <li class="nav-item"><%= link_to 'Home', root_path%></li>
+              <li class="nav-item"><%= link_to 'Meu perfil', profile_path(current_professional) %></li>
+              <li class="nav-item"><%= link_to 'Minhas Propostas', my_proposals_projects_path %></li>
+              <li class="nav-item"><%= link_to 'Feedbacks', feedbacks_projects_path %></li>
+              <li class="nav-item"><%= link_to 'Meus Projetos', my_projects_projects_path %></li>
+            </ul>
+          </div>
         </nav>
       <% else %>
         <nav class="navbar navbar-light bg-light">
           <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown button
+              Entrar
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="/users/sign_in">Entrar como Contratador</a></li>
-              <li><a class="dropdown-item" href="/professionals/sign_in">Entrar como Professional</a></li>
+              <li><a class="dropdown-item" href="/users/sign_in">Entrar como contratador</a></li>
+              <li><a class="dropdown-item" href="/professionals/sign_in">Entrar como profissional</a></li>
             </ul>
           </div>
         </nav>
         <h1> Freelas </h1>
         <h3> A melhor plataforma freelancer do Brasil </h3>
       <% end %>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p> 
+      <%= render 'shared/flash_messages'%><br>
         <%= yield %>
     </div>  
   </body>

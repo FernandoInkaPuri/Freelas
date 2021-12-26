@@ -11,13 +11,13 @@ class Api::V1::ProjectsController < Api::V1::ApiController
 
   def create
     @project = Project.create!(project_params)
-    render status: 201, json: @project
+    render status: :created, json: @project
   end
 
   private
 
   def project_params
-    params.require(:project).permit(:title, :description, :skills, :max_value, :limit_date, 
-                                    :start_date,:end_date, :modality, :user_id)
+    params.require(:project).permit(:title, :description, :skills, :max_value, :limit_date,
+                                    :start_date, :end_date, :modality, :user_id)
   end
 end

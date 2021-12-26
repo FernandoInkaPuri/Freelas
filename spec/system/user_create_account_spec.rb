@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'User create account' do
   it 'successfuly' do
-
     visit root_path
+    click_on 'Entrar'
     click_on 'Entrar como contratador'
     click_on 'Sign up'
     fill_in 'Email', with: 'manco@capac.com'
@@ -22,7 +22,7 @@ describe 'User create account' do
 
   it 'and login' do
     contratador = create(:user)
-    
+
     visit root_path
     click_on 'Entrar como contratador'
     fill_in 'Email', with: contratador.email

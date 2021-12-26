@@ -24,14 +24,20 @@
 - [Yarn](https://rubyonrails.org/): versão 1.22.11 
 
 ## Como rodar a aplicação
-No terminal, clone o projeto: 
+
+#### No terminal, clone o projeto: 
 > git clone https://github.com/FernandoInkaPuri/Freelas.git
-Entre na pasta do projeto:
+#### Entre na pasta do projeto:
 > cd Freelas
-Instale as dependências 
-> yarn install
-Execute a aplicação 
+#### Instale as dependências 
+> bin/setup
+#### Crie o banco de dados
+> rails db:migrate
+#### Inicialize o banco de dados
+> rails db:seed
+#### Execute a aplicação 
 > rails server
+
 Pronto, agora é possível acessar a aplicação através da rota http://localhost:3000/ 
 
 ## Como rodar os testes

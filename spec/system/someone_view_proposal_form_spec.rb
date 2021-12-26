@@ -8,7 +8,6 @@ describe 'Someone view proposal form' do
       contratador = create(:user)
       projeto = create(:project, user: contratador)
 
-      
       login_as trabalhador, scope: :professional
       visit root_path
       click_on projeto.title.to_s
@@ -30,10 +29,10 @@ describe 'Someone view proposal form' do
       create(:profile, professional: trabalhador)
       create(:project)
       # Stub e Mok, stub é na preparação e mok é na expectativa.
-      mailer_spy = class_spy(ProposalMailer) #cria espião para espionar o que acontece com a classe
-      stub_const('ProposalMailer', mailer_spy) #coloca o espião no lugar da classe
+      mailer_spy = class_spy(ProposalMailer) # cria espião para espionar o que acontece com a classe
+      stub_const('ProposalMailer', mailer_spy) # coloca o espião no lugar da classe
       mail = double
-      allow(ProposalMailer) #permite que a classe receba um metodo e tenha um retorno que eu defini.
+      allow(ProposalMailer) # permite que a classe receba um metodo e tenha um retorno que eu defini.
         .to receive(:notify_new_proposal).and_return(mail)
       allow(mail).to receive(:deliver_now)
 
@@ -62,7 +61,7 @@ describe 'Someone view proposal form' do
       projeto = create(:project, user: contratador)
       create(:proposal, project: projeto, professional: trabalhador,
                         reason: 'Fazer um ótimo trabalho')
-      
+
       login_as trabalhador, scope: :professional
       visit root_path
       click_on 'Minhas Propostas'
