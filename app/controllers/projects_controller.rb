@@ -90,8 +90,8 @@ class ProjectsController < ApplicationController
       @proposals_projects = []
       @proposals_users = []
       current_professional.proposals.accepted.each do |prop|
-        @proposals_projects << prop unless current_professional.feedbacks.where(project_id: prop.project.id).present?
-        @proposals_users << prop unless current_professional.user_feedbacks.where(project_id: prop.project.id).present?
+        @proposals_projects << prop if current_professional.feedbacks.where(project_id: prop.project.id).blank?
+        @proposals_users << prop if current_professional.user_feedbacks.where(project_id: prop.project.id).blank?
       end
       @proj_feedback = Feedback.new
       @user_feedback = UserFeedback.new
@@ -131,7 +131,7 @@ class ProjectsController < ApplicationController
 
   def aprovado
     proposals = Proposal.where(project: @project, status_proposal: 5)
-    professionals = proposals.professionals
+    proposals.professionals
   end
 
   def can_see

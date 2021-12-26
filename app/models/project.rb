@@ -6,8 +6,8 @@ class Project < ApplicationRecord
   validate :limit_date_in_the_past
   validate :end_date_greater_than_start_date
   validate :start_date_in_the_past
-  has_many :proposals
-  has_many :feedbacks
+  has_many :proposals, dependent: :nullify
+  has_many :feedbacks, dependent: :nullify
 
   private
 

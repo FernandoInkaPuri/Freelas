@@ -3,8 +3,8 @@ require 'rails_helper'
 describe 'Project API' do
   context 'GET /api/v1/projects' do
     it 'should get projects' do
-      project = create(:project, title: 'Projeto Vinícola Apolo')
-      project2 = create(:project, title: 'Projeto Tempero da vó')
+      create(:project, title: 'Projeto Vinícola Apolo')
+      create(:project, title: 'Projeto Tempero da vó')
 
       get '/api/v1/projects'
 
@@ -45,10 +45,10 @@ describe 'Project API' do
     end
 
     it 'should return 500 if database is not available' do
-      project = create(:project, title: 'Projeto Vinícola Apolo',
-                                 description: 'Vamos criar uma plataforma de assinatura de vinhos',
-                                 skills: 'Conhecimento em Ruby on Rails e bom raciocínio',
-                                 max_value: 70)
+      create(:project, title: 'Projeto Vinícola Apolo',
+                       description: 'Vamos criar uma plataforma de assinatura de vinhos',
+                       skills: 'Conhecimento em Ruby on Rails e bom raciocínio',
+                       max_value: 70)
       allow(Project).to receive(:find).and_raise(ActiveRecord::ActiveRecordError)
 
       get '/api/v1/projects/1111'

@@ -43,7 +43,7 @@ class ProposalsController < ApplicationController
 
     @proposal = Proposal.find(params[:id])
     @proposal.rejected!
-    @proposal.update_column(:justify, params[:justify])
+    @proposal.update!({ justify: params[:justify] })
     redirect_to @proposal.project, notice: 'Proposta rejeitada com sucesso!'
   end
 

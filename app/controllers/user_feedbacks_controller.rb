@@ -10,8 +10,7 @@ class UserFeedbacksController < ApplicationController
       redirect_to feedbacks_projects_path,
                   notice: "Feedback de #{project.user.email} enviado com sucesso!"
     else
-      redirect_to feedbacks_projects_path,
-                  notice: 'Preencha os campos corretamente!'
+      redirect_to feedbacks_projects_path, notice: 'Preencha os campos corretamente!'
     end
   end
 
