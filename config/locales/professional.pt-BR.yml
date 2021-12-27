@@ -6,3 +6,9 @@ pt-BR:
     attributes:
       professional:
         password: 'Senha'
+        password_confirmation: 'Confirme sua senha'
+        remember_me: 'Lembrar senha'
+  professional:
+    create:
+      success: 'Profissional cadastrado com sucesso!'
+      failure: 'Erro ao cadastrar Profissional!'

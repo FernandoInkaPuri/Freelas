@@ -5,12 +5,12 @@ describe 'User create account' do
     visit root_path
     click_on 'Entrar'
     click_on 'Entrar como contratador'
-    click_on 'Sign up'
+    click_on 'Cadastre-se'
     fill_in 'Email', with: 'manco@capac.com'
     fill_in 'Senha', with: '999abc'
     fill_in 'Confirme a senha', with: '999abc'
     within 'form' do
-      click_on 'Criar'
+      click_on 'Cadastrar'
     end
 
     expect(page).to have_content('Login efetuado com sucesso')
