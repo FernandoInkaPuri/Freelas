@@ -1,6 +1,5 @@
-<h3>Aproveite para dar o feedback aos profissionais que participaram</h3>
-
 <% if user_signed_in? %> 
+<h3>Aproveite para dar o feedback aos profissionais que participaram</h3>
   <% if @proposals != nil %>
     <% @proposals.each do |prop| %>
       <p><%= prop.professional.profile.social_name %>
@@ -20,8 +19,8 @@
     <% end %><br>
   <% end %>
 <% elsif professional_signed_in? %>
+  <h3>Aproveite para dar o feedback ao Contratador e ao Projeto</h3>
   <% if @propostas.present? %>
-    <h3>Aproveite para dar o feedback ao Contratador e ao Projeto</h3>
     <% @propostas.each do |prop| %>
       <p><%= prop.project.user.email %></p>
       <%= form_with model: @feedback, url: feedbacks_path(user_id: prop.project.user_id) do |f| %></p>

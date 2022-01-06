@@ -3,16 +3,14 @@ require 'rails_helper'
 describe 'User create account' do
   it 'successfuly' do
     visit root_path
-    click_on 'Entrar'
+    click_on 'Acesso'
     click_on 'Entrar como contratador'
     click_on 'Cadastre-se'
     fill_in 'Email', with: 'manco@capac.com'
     fill_in 'Senha', with: '999abc'
     fill_in 'Confirme a senha', with: '999abc'
-    within 'form' do
-      click_on 'Cadastrar'
-    end
-
+    click_on 'Cadastrar'
+    
     expect(page).to have_content('Login efetuado com sucesso')
     expect(page).to have_content('manco@capac.com')
     expect(page).to have_link('Logout')
@@ -27,9 +25,7 @@ describe 'User create account' do
     click_on 'Entrar como contratador'
     fill_in 'Email', with: contratador.email
     fill_in 'Senha', with: contratador.password
-    within 'form' do
-      click_on 'Entrar'
-    end
+    click_on 'Entrar'
 
     expect(page).to have_content('Login efetuado com sucesso!')
     expect(page).to have_content(contratador.email)

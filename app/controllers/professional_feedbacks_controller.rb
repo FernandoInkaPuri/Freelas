@@ -8,8 +8,7 @@ class ProfessionalFeedbacksController < ApplicationController
       redirect_to feedbacks_projects_path,
                   notice: "Feedback de #{@prof_feedback.professional.profile.social_name} enviado com sucesso!"
     else
-      redirect_to feedbacks_projects_path,
-                  notice: 'Preencha os campos corretamente!'
+      redirect_to feedbacks_projects_path, notice: t('.failure')
     end
   end
 

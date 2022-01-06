@@ -13,3 +13,11 @@ pt-BR:
         start_date: 'Data inicial'
         end_date: 'Previsão de término'
         modality: 'Modalidade'
+  projects:
+    create:
+      success: 'Projeto cadastrado com sucesso!'
+      failure: 'Erro ao cadastrar projeto!'
+    close_registration:
+      close: 'Inscrições do projeto foram encerradas!'
+    close_project:
+      close: 'Projeto encerrado com sucesso! Aproveite e dê o feedback dos profissionais que participaram.'

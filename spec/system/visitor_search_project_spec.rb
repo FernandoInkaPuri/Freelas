@@ -9,7 +9,7 @@ describe 'Visitor search projects' do
 
     visit root_path
 
-    fill_in 'Pesquisar projeto:', with: 'carro'
+    find(:css, '.searchLabel').fill_in(with:'carro')
     within 'form' do
       click_on 'Buscar'
     end

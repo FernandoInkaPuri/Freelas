@@ -56,7 +56,7 @@ describe 'User ends project' do
     fill_in 'Nota:', with: ''
     click_on 'Enviar'
 
-    expect(page).to have_content('Preencha os campos corretamente!')
+    expect(page).to have_content('Erro ao registrar Feedback, verifique se os campos estão preenchidos corretamente!')
     expect(page).not_to have_content('Projeto Marketplace')
   end
 

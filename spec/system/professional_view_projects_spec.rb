@@ -12,7 +12,7 @@ describe 'Professional view projects' do
     expect(page).to have_content(trabalhador.email)
     expect(page).to have_content(projeto.title.to_s)
     expect(page).to have_content(projeto.description)
-    expect(page).to have_content('Habilidade desejadas: Ruby on rails')
+    expect(page).to have_content('Habilidades desejadas: Ruby on rails')
     expect(page).to have_content('Valor max por hora: R$ 100,00')
     expect(page).to have_content("Data limite para candidatura: #{I18n.l 2.weeks.from_now.to_date}")
     expect(page).to have_content("Inicio do projeto: #{I18n.l 3.weeks.from_now.to_date}")

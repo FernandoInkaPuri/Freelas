@@ -1,0 +1,12 @@
+---
+pt-BR:
+  activerecord:
+    models:
+      professional_feedback: 'Feedback aos profissionais'
+    attributes:
+      professional_feedback:
+        opinion: 'Feedback'
+        grade: 'Nota'
+  professional_feedbacks:
+    create:
+      failure: 'Erro ao registrar Feedback, verifique se os campos estão preenchidos corretamente!'

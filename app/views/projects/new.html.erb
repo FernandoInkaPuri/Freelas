@@ -11,7 +11,7 @@
     <% @project.errors.full_messages_for(:description).each do |erro| %>
         <%= erro %>
     <% end %></p>
-    <p><%= f.label :skills, 'Habilidades' %>
+    <p><%= f.label :skills, 'Habilidades desejadas' %>
     <%= f.text_field :skills %>
     <% @project.errors.full_messages_for(:skills).each do |erro| %>
         <%= erro %>

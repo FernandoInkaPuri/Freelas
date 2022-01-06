@@ -10,9 +10,9 @@ class ProjectsController < ApplicationController
     @project = Project.new(parametros)
     @project.user = current_user
     if @project.save
-      redirect_to root_path
+      redirect_to @project, notice: t('.success')
     else
-      render :new
+      render :new, alert: t('.failure')
     end
   end
 
@@ -42,7 +42,8 @@ class ProjectsController < ApplicationController
   end
 
   def my_proposals
-    @proposals = current_professional.proposals
+    @proposals = []
+    current_professional.proposals.each{ |prop| @proposals << prop if prop.project.open   } 
   end
 
   def close_registration
@@ -50,7 +51,7 @@ class ProjectsController < ApplicationController
     return unless project.user == current_user
 
     project.update_column(:open_registration, false)
-    redirect_to project
+    redirect_to project, notice: t('.close')
   end
 
   def team
@@ -72,8 +73,7 @@ class ProjectsController < ApplicationController
     return unless project.user == current_user
 
     project.update_column(:open, false)
-    redirect_to feedbacks_projects_path,
-                notice: 'Projeto encerrado com sucesso! Aproveite e dê o feedback dos profissionais que participaram '
+    redirect_to feedbacks_projects_path, notice: t('.close')
   end
 
   def my_projects

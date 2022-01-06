@@ -1,5 +1,5 @@
-<h3>Aproveite para dar o feedback ao Contratador e ao Projeto</h3>
 <% if professional_signed_in? %>
+  <h3>Aproveite para dar o feedback ao Contratador e ao Projeto</h3><br>
   <% if @proposals_projects.present?  %>
     <% @proposals_projects.each do |prop|%>
       <p>Feedback de <%= prop.project.title %>
@@ -40,23 +40,24 @@
       </div>
     <% end %>
   <% end %>
-<% elsif user_signed_in? && @proposals.present? %>
-  <% @proposals.each do |prop|%>
-    <p><%= prop.professional.profile.social_name %>
-    <%= form_with model: @prof_feedback, url: professional_feedbacks_path(professional_id: prop.professional.id, user_id: current_user.id) do |f| %></p>
-      <p><%= f.label :opinion, "Feedback: " %>
-      <%= f.text_field :opinion %></p>
-      <% @prof_feedback.errors.full_messages_for(:opinion).each do |erro| %>
-          <%= erro %>
-      <% end %>
-      <p><%= f.label :grade, "Nota: " %>
-      <%= f.text_field :grade %></p>
-      <% @prof_feedback.errors.full_messages_for(:grade).each do |erro| %>
-          <%= erro %>
-      <% end %>
-      <%= f.submit 'Enviar' %></p>
-    <% end %><br>
+<% elsif user_signed_in?%>
+  <h3>Aproveite para dar o feedback aos profissionais que participaram</h3><br>
+  <% if @proposals.present? %>
+    <% @proposals.each do |prop|%>
+      <p><%= prop.professional.profile.social_name %>
+      <%= form_with model: @prof_feedback, url: professional_feedbacks_path(professional_id: prop.professional.id, user_id: current_user.id) do |f| %></p>
+        <p><%= f.label :opinion, "Feedback: " %>
+        <%= f.text_field :opinion %></p>
+        <% @prof_feedback.errors.full_messages_for(:opinion).each do |erro| %>
+            <%= erro %>
+        <% end %>
+        <p><%= f.label :grade, "Nota: " %>
+        <%= f.text_field :grade %></p>
+        <% @prof_feedback.errors.full_messages_for(:grade).each do |erro| %>
+            <%= erro %>
+        <% end %>
+        <%= f.submit 'Enviar' %></p>
+      <% end %><br>
+    <% end %>
   <% end %>
 <% end %>
-  
-  
