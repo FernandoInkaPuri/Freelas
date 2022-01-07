@@ -1,0 +1,17 @@
+---
+pt-BR:
+  activerecord:
+    models:
+      profile: 'Perfil'
+    attributes:
+      profile:
+        name: 'Nome'
+        social_name: 'Nome Social'
+        birth_date: 'Data de Nascimento'
+        formation: 'Formação'
+        description: 'Descrição'
+        experience: 'Experiência'
+  profiles:
+    update:
+      success: 'Perfil editado com sucesso!'
+      failure: 'Erro ao editar Perfil!'

@@ -14,3 +14,4 @@
 <p><%= @profile.formation %></p>
 <p><%= @profile.description %></p>
 <p><%= @profile.experience %></p>
+<%= link_to('Editar Perfil', edit_profile_path) if @profile.professional == current_professional %>

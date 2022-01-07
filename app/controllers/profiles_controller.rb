@@ -1,7 +1,8 @@
-class ProfileController < ApplicationController
+class ProfilesController < ApplicationController
   before_action :authenticate_user!, only: [:set_favorite]
-  before_action :authenticate_professional!, only: %i[new create]
+  before_action :authenticate_professional!, only: %i[new create edit]
   before_action :authenticate_person, only: [:show]
+  
   def new
     if current_professional.pending?
       @profile = Profile.new
@@ -34,6 +35,19 @@ class ProfileController < ApplicationController
       nota
       favorite = FavoriteProfessional.where(user: current_user, professional: @profile.professional)
       favorite.each { |fav| return @fav = true if fav.favorited? }
+    end
+  end
+
+  def edit
+    @profile = Profile.find(params[:id])
+  end
+
+  def update
+    @profile = Profile.find(params[:id])
+    if @profile.update(profile_params)
+      redirect_to @profile, notice: t('.success')
+    else
+      render :edit, notice: t('.failure')
     end
   end
 
