@@ -24,7 +24,7 @@ describe 'Professional fill profile' do
       expect(page).to have_content('Análise de sistemas')
     end
 
-    it 'but fills wrong' do 
+    it 'but fills wrong' do
       trabalhador = create(:professional)
 
       login_as trabalhador, scope: :professional
@@ -49,9 +49,9 @@ describe 'Professional fill profile' do
   end
 
   context 'edit profile' do
-    it 'successfully' do 
-      trabalhador = create(:professional, status_profile:10)
-      perfil = create(:profile, professional:trabalhador)
+    it 'successfully' do
+      trabalhador = create(:professional, status_profile: 10)
+      perfil = create(:profile, professional: trabalhador)
 
       login_as trabalhador, scope: :professional
       visit root_path

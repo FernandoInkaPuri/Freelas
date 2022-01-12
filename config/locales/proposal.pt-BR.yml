@@ -6,4 +6,7 @@ pt-BR:
     hour_value: 'Valor'
     hours_week: 'Horas'
     expectation: 'Expectativa'   
-      
+  proposals:
+    update:
+      success: 'Proposta editada com sucesso!'
+      failure: 'Erro ao editar Proposta!'

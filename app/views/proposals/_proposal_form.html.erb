@@ -1,0 +1,23 @@
+<%= form_with model: @proposal do |f| %>
+  <p><%= f.label :reason, 'Motivo:' %>
+  <%= f.text_field :reason %>
+  <% @proposal.errors.full_messages_for(:reason).each do |erro| %>
+      <%= erro %>
+  <% end %></p>
+  <p><%= f.label :hour_value, 'Valor/hora:' %>
+  <%= f.number_field :hour_value %>
+  <% @proposal.errors.full_messages_for(:hour_value).each do |erro| %>
+      <%= erro %>
+  <% end %></p>
+  <p><%= f.label :hours_week, 'Horas disponíveis por semana:' %>
+  <%= f.number_field :hours_week, step: 1, min: 1 %>
+  <% @proposal.errors.full_messages_for(:hours_week).each do |erro| %>
+      <%= erro %>
+  <% end %></p>
+  <p><%= f.label :expectation, 'Expectativa:' %>
+  <%= f.text_field :expectation %>
+  <% @proposal.errors.full_messages_for(:expectation).each do |erro| %>
+      <%= erro %>
+  <% end %></p>
+  <%= f.submit 'Enviar proposta' %>
+<% end %>

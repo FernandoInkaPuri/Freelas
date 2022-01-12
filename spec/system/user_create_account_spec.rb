@@ -10,7 +10,7 @@ describe 'User create account' do
     fill_in 'Senha', with: '999abc'
     fill_in 'Confirme a senha', with: '999abc'
     click_on 'Cadastrar'
-    
+
     expect(page).to have_content('Login efetuado com sucesso')
     expect(page).to have_content('manco@capac.com')
     expect(page).to have_link('Logout')

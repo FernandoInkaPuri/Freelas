@@ -10,7 +10,10 @@ class ProposalsController < ApplicationController
   def create
     @proposal = current_professional.proposals.new(proposal_params)
     @proposal.project = Project.find(params[:project_id])
-    if @proposal.save
+    @proposta = current_professional.proposals.find_by project_id: params[:project_id]
+    if @proposta.present?
+      redirect_to @proposta, notice: 'Você já tem uma proposta para este projeto!'
+    elsif @proposal.save
       ProposalMailer.with(proposal: @proposal).notify_new_proposal.deliver_now
       redirect_to @proposal, notice: 'Proposta enviada com sucesso!'
     else
@@ -25,6 +28,19 @@ class ProposalsController < ApplicationController
       return @proposal = prop if current_user == project.user
     elsif professional_signed_in?
       return @proposal = prop if current_professional == prop.professional
+    end
+  end
+
+  def edit
+    @proposal = Proposal.find(params[:id])
+  end
+
+  def update
+    @proposal = Proposal.find(params[:id])
+    if @proposal.update(proposal_params)
+      redirect_to @proposal, notice: t('.success')
+    else
+      render :edit, alert: t('.failure')
     end
   end
 

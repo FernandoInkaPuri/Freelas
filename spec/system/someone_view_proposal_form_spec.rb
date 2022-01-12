@@ -65,9 +65,53 @@ describe 'Someone view proposal form' do
       login_as trabalhador, scope: :professional
       visit root_path
       click_on 'Minhas Propostas'
+      click_on 'Ver Proposta'
       click_on 'Cancelar Proposta'
 
       expect(page).to have_content('Proposta cancelada com sucesso!')
+    end
+
+    it 'and tries to open another proposal for the same project' do
+      trabalhador = create(:professional, status_profile: 10)
+      create(:profile, professional: trabalhador)
+      contratador = create(:user)
+      projeto = create(:project, user: contratador)
+      create(:proposal, project: projeto, professional: trabalhador,
+                        reason: 'Fazer um ótimo trabalho')
+
+      login_as trabalhador, scope: :professional
+      visit root_path
+      click_on 'Projeto Marketplace'
+      click_on 'Candidatar para projeto'
+      fill_in 'Motivo:', with: 'Quero trabalhar'
+      fill_in 'Valor/hora', with: '110'
+      fill_in 'Horas disponíveis', with: '25'
+      fill_in 'Expectativa', with: 'Adquirir conhecimento'
+      click_on 'Enviar proposta'
+
+      expect(page).to have_content('Você já tem uma proposta para este projeto!')
+    end
+
+    it 'and tries to open another proposal for the same project' do
+      trabalhador = create(:professional, status_profile: 10)
+      create(:profile, professional: trabalhador)
+      contratador = create(:user)
+      projeto = create(:project, user: contratador)
+      create(:proposal, project: projeto, professional: trabalhador,
+                        reason: 'Fazer um ótimo trabalho')
+
+      login_as trabalhador, scope: :professional
+      visit root_path
+      click_on 'Minhas Propostas'
+      click_on 'Ver Proposta'
+      click_on 'Editar Proposta'
+      fill_in 'Motivo:', with: 'Quero trabalhar'
+      fill_in 'Valor/hora', with: '110'
+      fill_in 'Horas disponíveis', with: '25'
+      fill_in 'Expectativa', with: 'Adquirir conhecimento'
+      click_on 'Enviar proposta'
+
+      expect(page).to have_content('Proposta editada com sucesso!')
     end
   end
 

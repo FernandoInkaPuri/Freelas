@@ -43,7 +43,7 @@ class ProjectsController < ApplicationController
 
   def my_proposals
     @proposals = []
-    current_professional.proposals.each{ |prop| @proposals << prop if prop.project.open   } 
+    current_professional.proposals.each { |prop| @proposals << prop if prop.project.open }
   end
 
   def close_registration

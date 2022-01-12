@@ -1,11 +1,14 @@
 <h3> Proposta para atuar no projeto <%= @proposal.project.title %></h3>
 <p>Proposta de <%= @proposal.professional.profile.social_name %></p>
-<p><%= @proposal.reason%></p>
+<p>Motivo: <%= @proposal.reason%></p>
 <p>Valor/hora: <%=number_to_currency(@proposal.hour_value)%></p>
 <p>Horas disponíveis: <%= @proposal.hours_week%></p>
 <p><%= @proposal.expectation%></p>
 <p><%= link_to 'Ver Projeto', @proposal.project %>
 <% if user_signed_in? %>
- <%= link_to 'Ver Perfil', @proposal.professional.profile %>
+  <%= link_to 'Ver Perfil', @proposal.professional.profile %></p>
+<% elsif professional_signed_in? && @proposal.professional == current_professional %>
+  <%= link_to 'Editar Proposta', edit_proposal_path %>
+  <%= link_to 'Cancelar Proposta', proposal_path(@proposal), method: :delete %></p>
 <% end %>
-</p>
+

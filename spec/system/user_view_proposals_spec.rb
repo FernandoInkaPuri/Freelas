@@ -85,7 +85,6 @@ describe 'User view proposals' do
     fill_in 'Email', with: trabalhador.email
     fill_in 'Senha', with: trabalhador.password
     click_on 'Entrar'
-    
 
     expect(page).not_to have_content('Projeto Marketplace')
     expect(page).not_to have_content('Projeto top')

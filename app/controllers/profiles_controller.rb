@@ -2,7 +2,7 @@ class ProfilesController < ApplicationController
   before_action :authenticate_user!, only: [:set_favorite]
   before_action :authenticate_professional!, only: %i[new create edit]
   before_action :authenticate_person, only: [:show]
-  
+
   def new
     if current_professional.pending?
       @profile = Profile.new

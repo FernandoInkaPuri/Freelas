@@ -11,6 +11,6 @@
     <% elsif prop.status_proposal == 'rejected' %>
         Status: Rejeitada</p>
     <% end %>
-  <p><%= link_to 'Ver Projeto', prop.project %></p>
-  <p><%= link_to 'Cancelar Proposta', proposal_path(prop), method: :delete %></p>
+  <p><%= link_to 'Ver Proposta', proposal_path(prop) %></p>
+<br>
 <% end %>
